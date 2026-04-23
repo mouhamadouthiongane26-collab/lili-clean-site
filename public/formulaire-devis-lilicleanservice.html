@@ -67,6 +67,10 @@
         gap: 18px;
       }
 
+      .address-grid {
+        grid-template-columns: minmax(0, 1fr) 176px;
+      }
+
       .field {
         margin-bottom: 18px;
       }
@@ -175,6 +179,10 @@
           grid-template-columns: 1fr;
           gap: 0;
         }
+
+        .address-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
@@ -214,10 +222,26 @@
           </div>
         </div>
 
-        <div class="field" data-field="address">
-          <label for="address">Adresse postale</label>
-          <input id="address" name="address" autocomplete="street-address" />
-          <p class="error-text"></p>
+        <div class="grid address-grid">
+          <div class="field" data-field="address">
+            <label for="address">Adresse postale</label>
+            <input id="address" name="address" autocomplete="street-address" />
+            <p class="error-text"></p>
+          </div>
+
+          <div class="field" data-field="surface">
+            <label for="surface">Surface (m²)</label>
+            <input
+              id="surface"
+              name="surface"
+              type="number"
+              min="1"
+              step="1"
+              inputmode="numeric"
+              placeholder="Ex : 80"
+            />
+            <p class="error-text"></p>
+          </div>
         </div>
 
         <div class="field" data-field="message">
@@ -285,6 +309,10 @@
         }
         if (!payload.phone) errors.phone = "Merci d'indiquer votre numéro de téléphone.";
         if (!payload.address) errors.address = "Merci d'indiquer votre adresse postale.";
+        if (!payload.surface) errors.surface = "Merci d'indiquer la surface.";
+        else if (!Number.isFinite(Number(payload.surface)) || Number(payload.surface) <= 0) {
+          errors.surface = "Merci d'indiquer une surface valide.";
+        }
         if (!payload.message) errors.message = "Merci de décrire votre besoin.";
 
         return errors;
@@ -300,6 +328,7 @@
           email: value("email"),
           phone: value("phone"),
           address: value("address"),
+          surface: value("surface"),
           message: value("message")
         };
         const errors = validate(payload);

@@ -18,6 +18,7 @@ type FormErrors = {
   email?: string;
   phone?: string;
   address?: string;
+  surface?: string;
   message?: string;
 };
 
@@ -28,6 +29,12 @@ const initialStatus: FormStatus = {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidSurface(surface: string) {
+  const numberValue = Number(surface.replace(",", "."));
+
+  return Number.isFinite(numberValue) && numberValue > 0;
 }
 
 export function LeadForm() {
@@ -46,6 +53,7 @@ export function LeadForm() {
       email: getString(formData, "email"),
       phone: getString(formData, "phone"),
       address: getString(formData, "address"),
+      surface: getString(formData, "surface"),
       message: getString(formData, "message")
     };
     const nextErrors: FormErrors = {};
@@ -70,6 +78,12 @@ export function LeadForm() {
 
     if (!payload.address) {
       nextErrors.address = "Merci d'indiquer votre adresse postale.";
+    }
+
+    if (!payload.surface) {
+      nextErrors.surface = "Merci d'indiquer la surface.";
+    } else if (!isValidSurface(payload.surface)) {
+      nextErrors.surface = "Merci d'indiquer une surface valide.";
     }
 
     if (!payload.message) {
@@ -236,21 +250,44 @@ export function LeadForm() {
         </div>
       </div>
 
-      <div>
-        <label className="label" htmlFor="address">
-          Adresse postale
-        </label>
-        <input
-          id="address"
-          name="address"
-          className="input"
-          autoComplete="street-address"
-          aria-invalid={Boolean(errors.address)}
-          required
-        />
-        {errors.address ? (
-          <p className="mt-2 text-sm text-red-600">{errors.address}</p>
-        ) : null}
+      <div className="grid gap-5 sm:grid-cols-[minmax(0,1fr)_11rem]">
+        <div>
+          <label className="label" htmlFor="address">
+            Adresse postale
+          </label>
+          <input
+            id="address"
+            name="address"
+            className="input"
+            autoComplete="street-address"
+            aria-invalid={Boolean(errors.address)}
+            required
+          />
+          {errors.address ? (
+            <p className="mt-2 text-sm text-red-600">{errors.address}</p>
+          ) : null}
+        </div>
+
+        <div>
+          <label className="label" htmlFor="surface">
+            Surface (m²)
+          </label>
+          <input
+            id="surface"
+            name="surface"
+            type="number"
+            min="1"
+            step="1"
+            inputMode="numeric"
+            className="input"
+            placeholder="Ex : 80"
+            aria-invalid={Boolean(errors.surface)}
+            required
+          />
+          {errors.surface ? (
+            <p className="mt-2 text-sm text-red-600">{errors.surface}</p>
+          ) : null}
+        </div>
       </div>
 
       <div>

@@ -1,10 +1,25 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+function env(name: string) {
+  return process.env[name]?.trim() || "";
+}
+
+function getSupabaseUrl() {
+  return env("NEXT_PUBLIC_SUPABASE_URL");
+}
+
+function getSupabaseAnonKey() {
+  return env("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+}
+
+function getSupabaseServiceRoleKey() {
+  return env("SUPABASE_SERVICE_ROLE_KEY");
+}
 
 export function getSupabaseServerClient() {
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseAnonKey = getSupabaseAnonKey();
+
   if (!supabaseUrl || !supabaseAnonKey) {
     return null;
   }
@@ -18,6 +33,9 @@ export function getSupabaseServerClient() {
 }
 
 export function getSupabaseAdminClient() {
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseServiceRoleKey = getSupabaseServiceRoleKey();
+
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     return null;
   }
@@ -31,5 +49,13 @@ export function getSupabaseAdminClient() {
 }
 
 export function hasSupabasePublicConfig() {
-  return Boolean(supabaseUrl && supabaseAnonKey);
+  return Boolean(getSupabaseUrl() && getSupabaseAnonKey());
+}
+
+export function getSupabaseConfigStatus() {
+  return {
+    hasUrl: Boolean(getSupabaseUrl()),
+    hasAnonKey: Boolean(getSupabaseAnonKey()),
+    hasServiceRoleKey: Boolean(getSupabaseServiceRoleKey())
+  };
 }

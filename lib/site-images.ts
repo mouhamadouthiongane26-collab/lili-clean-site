@@ -16,8 +16,8 @@ export const siteImages = {
     alt: "Materiel professionnel de nettoyage pour prestations d entretien et remise en etat"
   },
   servicesVisual: {
-    src: "/images/menage-salle-de-bain-miroir.png",
-    alt: "Personne en train de nettoyer un miroir dans une salle de bain propre et lumineuse"
+    src: "/images/hommes-menage.jpeg",
+    alt: "Service de nettoyage professionnel"
   },
   results: [
     {

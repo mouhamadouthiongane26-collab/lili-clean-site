@@ -96,7 +96,7 @@ export default function HomePage() {
                   Maison propre
                 </p>
                 <p className="mt-2 text-sm leading-6 text-white">
-                  Un intérieur net et lumineux pour montrer tout de suite la promesse de qualité.
+                  Profitez d’un intérieur parfaitement propre, sans lever le petit doigt.
                 </p>
               </div>
 

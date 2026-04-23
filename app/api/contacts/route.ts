@@ -2,19 +2,18 @@ import { NextResponse } from "next/server";
 
 import {
   getSupabaseAdminClient,
-  getSupabaseConfigStatus,
   getSupabaseServerClient
 } from "@/lib/supabase";
 import { normalizePhone } from "@/lib/utils";
 
 type ContactPayload = {
-  first_name?: unknown;
-  last_name?: unknown;
+  prenom?: unknown;
+  nom?: unknown;
   email?: unknown;
-  phone?: unknown;
-  address?: unknown;
+  telephone?: unknown;
+  adresse?: unknown;
   surface?: unknown;
-  message?: unknown;
+  besoin?: unknown;
 };
 
 const supabaseTimeoutMs = 8000;
@@ -31,15 +30,7 @@ function toPositiveNumber(value: string) {
   const normalizedValue = value.replace(",", ".");
   const numberValue = Number(normalizedValue);
 
-  return Number.isFinite(numberValue) && numberValue > 0 ? numberValue : null;
-}
-
-function shouldTryLegacyContactsSchema(message: string) {
-  return (
-    message.includes("Could not find") ||
-    message.includes("schema cache") ||
-    message.includes("column")
-  );
+  return Number.isInteger(numberValue) && numberValue > 0 ? numberValue : null;
 }
 
 function withTimeout<T>(promise: Promise<T>, timeoutMs: number) {
@@ -64,22 +55,22 @@ export async function POST(request: Request) {
     const payload = (await request.json()) as ContactPayload;
     console.log("[contacts] Donnees recues :", JSON.stringify(payload));
 
-    const firstName = cleanString(payload.first_name);
-    const lastName = cleanString(payload.last_name);
+    const prenom = cleanString(payload.prenom);
+    const nom = cleanString(payload.nom);
     const email = cleanString(payload.email).toLowerCase();
-    const phone = normalizePhone(cleanString(payload.phone));
-    const address = cleanString(payload.address);
+    const telephone = normalizePhone(cleanString(payload.telephone));
+    const adresse = cleanString(payload.adresse);
     const rawSurface = cleanString(payload.surface);
     const surface = toPositiveNumber(rawSurface);
-    const message = cleanString(payload.message);
+    const besoin = cleanString(payload.besoin);
     const fieldErrors: Record<string, string> = {};
 
-    if (!firstName) {
-      fieldErrors.first_name = "Le prénom est requis.";
+    if (!prenom) {
+      fieldErrors.prenom = "Le prénom est requis.";
     }
 
-    if (!lastName) {
-      fieldErrors.last_name = "Le nom est requis.";
+    if (!nom) {
+      fieldErrors.nom = "Le nom est requis.";
     }
 
     if (!email) {
@@ -88,12 +79,12 @@ export async function POST(request: Request) {
       fieldErrors.email = "L'adresse email n'est pas valide.";
     }
 
-    if (!phone) {
-      fieldErrors.phone = "Le téléphone est requis.";
+    if (!telephone) {
+      fieldErrors.telephone = "Le téléphone est requis.";
     }
 
-    if (!address) {
-      fieldErrors.address = "L'adresse postale est requise.";
+    if (!adresse) {
+      fieldErrors.adresse = "L'adresse postale est requise.";
     }
 
     if (!rawSurface) {
@@ -102,8 +93,8 @@ export async function POST(request: Request) {
       fieldErrors.surface = "La surface doit être un nombre supérieur à 0.";
     }
 
-    if (!message) {
-      fieldErrors.message = "Votre besoin est requis.";
+    if (!besoin) {
+      fieldErrors.besoin = "Votre besoin est requis.";
     }
 
     if (Object.keys(fieldErrors).length > 0) {
@@ -120,16 +111,12 @@ export async function POST(request: Request) {
     const supabase = getSupabaseAdminClient() ?? getSupabaseServerClient();
 
     if (!supabase) {
-      console.error(
-        "[contacts] Configuration Supabase manquante :",
-        JSON.stringify(getSupabaseConfigStatus())
-      );
+      console.error("[contacts] Client Supabase indisponible.");
 
       return NextResponse.json(
         {
           success: false,
-          message:
-            "La configuration Supabase est manquante. Merci de vérifier les variables d'environnement."
+          message: "Une erreur serveur est survenue. Merci de réessayer dans un instant."
         },
         { status: 500 }
       );
@@ -137,13 +124,13 @@ export async function POST(request: Request) {
 
     const supabaseClient = supabase;
     const contact = {
-      prenom: firstName,
-      nom: lastName,
+      prenom,
+      nom,
       email,
-      telephone: phone,
-      adresse: address,
+      telephone,
+      adresse,
       surface,
-      besoin: message
+      besoin
     };
 
     console.log("[contacts] Insertion Supabase :", JSON.stringify(contact));
@@ -156,43 +143,7 @@ export async function POST(request: Request) {
         .single();
     }
 
-    let { data, error } = await withTimeout(insertContact(), supabaseTimeoutMs);
-
-    if (error && shouldTryLegacyContactsSchema(error.message)) {
-      const legacyContact = {
-        nom: `${firstName} ${lastName}`.trim(),
-        email,
-        telephone: phone,
-        message: [
-          `Adresse postale : ${address}`,
-          `Surface : ${surface} m²`,
-          "",
-          "Besoin :",
-          message
-        ].join("\n")
-      };
-
-      console.log(
-        "[contacts] Schema contacts legacy detecte, nouvel essai :",
-        JSON.stringify(legacyContact)
-      );
-
-      async function insertLegacyContact() {
-        return supabaseClient
-          .from("contacts")
-          .insert(legacyContact)
-          .select("id, created_at")
-          .single();
-      }
-
-      const legacyResult = await withTimeout(
-        insertLegacyContact(),
-        supabaseTimeoutMs
-      );
-
-      data = legacyResult.data;
-      error = legacyResult.error;
-    }
+    const { data, error } = await withTimeout(insertContact(), supabaseTimeoutMs);
 
     if (error) {
       console.error("[contacts] Erreur Supabase :", JSON.stringify(error));

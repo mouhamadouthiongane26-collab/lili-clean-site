@@ -195,15 +195,15 @@
         </p>
 
         <div class="grid">
-          <div class="field" data-field="first_name">
-            <label for="firstName">Prénom</label>
-            <input id="firstName" name="first_name" autocomplete="given-name" />
+          <div class="field" data-field="prenom">
+            <label for="prenom">Prénom</label>
+            <input id="prenom" name="prenom" autocomplete="given-name" />
             <p class="error-text"></p>
           </div>
 
-          <div class="field" data-field="last_name">
-            <label for="lastName">Nom</label>
-            <input id="lastName" name="last_name" autocomplete="family-name" />
+          <div class="field" data-field="nom">
+            <label for="nom">Nom</label>
+            <input id="nom" name="nom" autocomplete="family-name" />
             <p class="error-text"></p>
           </div>
         </div>
@@ -215,17 +215,17 @@
             <p class="error-text"></p>
           </div>
 
-          <div class="field" data-field="phone">
-            <label for="phone">Numéro de téléphone</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" />
+          <div class="field" data-field="telephone">
+            <label for="telephone">Numéro de téléphone</label>
+            <input id="telephone" name="telephone" type="tel" autocomplete="tel" />
             <p class="error-text"></p>
           </div>
         </div>
 
         <div class="grid address-grid">
-          <div class="field" data-field="address">
-            <label for="address">Adresse postale</label>
-            <input id="address" name="address" autocomplete="street-address" />
+          <div class="field" data-field="adresse">
+            <label for="adresse">Adresse postale</label>
+            <input id="adresse" name="adresse" autocomplete="street-address" />
             <p class="error-text"></p>
           </div>
 
@@ -244,11 +244,11 @@
           </div>
         </div>
 
-        <div class="field" data-field="message">
-          <label for="message">Votre besoin</label>
+        <div class="field" data-field="besoin">
+          <label for="besoin">Votre besoin</label>
           <textarea
-            id="message"
-            name="message"
+            id="besoin"
+            name="besoin"
             placeholder="Décrivez la prestation souhaitée, la surface, vos disponibilités ou le niveau d'urgence."
           ></textarea>
           <p class="error-text"></p>
@@ -301,19 +301,19 @@
       function validate(payload) {
         const errors = {};
 
-        if (!payload.first_name) errors.first_name = "Merci d'indiquer votre prénom.";
-        if (!payload.last_name) errors.last_name = "Merci d'indiquer votre nom.";
+        if (!payload.prenom) errors.prenom = "Merci d'indiquer votre prénom.";
+        if (!payload.nom) errors.nom = "Merci d'indiquer votre nom.";
         if (!payload.email) errors.email = "Merci d'indiquer votre adresse email.";
         else if (!isValidEmail(payload.email)) {
           errors.email = "Merci d'indiquer une adresse email valide.";
         }
-        if (!payload.phone) errors.phone = "Merci d'indiquer votre numéro de téléphone.";
-        if (!payload.address) errors.address = "Merci d'indiquer votre adresse postale.";
+        if (!payload.telephone) errors.telephone = "Merci d'indiquer votre numéro de téléphone.";
+        if (!payload.adresse) errors.adresse = "Merci d'indiquer votre adresse postale.";
         if (!payload.surface) errors.surface = "Merci d'indiquer la surface.";
         else if (!Number.isFinite(Number(payload.surface)) || Number(payload.surface) <= 0) {
           errors.surface = "Merci d'indiquer une surface valide.";
         }
-        if (!payload.message) errors.message = "Merci de décrire votre besoin.";
+        if (!payload.besoin) errors.besoin = "Merci de décrire votre besoin.";
 
         return errors;
       }
@@ -323,13 +323,13 @@
         clearErrors();
 
         const payload = {
-          first_name: value("first_name"),
-          last_name: value("last_name"),
+          prenom: value("prenom"),
+          nom: value("nom"),
           email: value("email"),
-          phone: value("phone"),
-          address: value("address"),
+          telephone: value("telephone"),
+          adresse: value("adresse"),
           surface: value("surface"),
-          message: value("message")
+          besoin: value("besoin")
         };
         const errors = validate(payload);
 

@@ -13,13 +13,13 @@ type FormStatus = {
 };
 
 type FormErrors = {
-  first_name?: string;
-  last_name?: string;
+  prenom?: string;
+  nom?: string;
   email?: string;
-  phone?: string;
-  address?: string;
+  telephone?: string;
+  adresse?: string;
   surface?: string;
-  message?: string;
+  besoin?: string;
 };
 
 const initialStatus: FormStatus = {
@@ -48,22 +48,22 @@ export function LeadForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const payload = {
-      first_name: getString(formData, "first_name"),
-      last_name: getString(formData, "last_name"),
+      prenom: getString(formData, "prenom"),
+      nom: getString(formData, "nom"),
       email: getString(formData, "email"),
-      phone: getString(formData, "phone"),
-      address: getString(formData, "address"),
+      telephone: getString(formData, "telephone"),
+      adresse: getString(formData, "adresse"),
       surface: getString(formData, "surface"),
-      message: getString(formData, "message")
+      besoin: getString(formData, "besoin")
     };
     const nextErrors: FormErrors = {};
 
-    if (!payload.first_name) {
-      nextErrors.first_name = "Merci d'indiquer votre prénom.";
+    if (!payload.prenom) {
+      nextErrors.prenom = "Merci d'indiquer votre prénom.";
     }
 
-    if (!payload.last_name) {
-      nextErrors.last_name = "Merci d'indiquer votre nom.";
+    if (!payload.nom) {
+      nextErrors.nom = "Merci d'indiquer votre nom.";
     }
 
     if (!payload.email) {
@@ -72,12 +72,12 @@ export function LeadForm() {
       nextErrors.email = "Merci d'indiquer une adresse email valide.";
     }
 
-    if (!payload.phone) {
-      nextErrors.phone = "Merci d'indiquer votre numéro de téléphone.";
+    if (!payload.telephone) {
+      nextErrors.telephone = "Merci d'indiquer votre numéro de téléphone.";
     }
 
-    if (!payload.address) {
-      nextErrors.address = "Merci d'indiquer votre adresse postale.";
+    if (!payload.adresse) {
+      nextErrors.adresse = "Merci d'indiquer votre adresse postale.";
     }
 
     if (!payload.surface) {
@@ -86,8 +86,8 @@ export function LeadForm() {
       nextErrors.surface = "Merci d'indiquer une surface valide.";
     }
 
-    if (!payload.message) {
-      nextErrors.message = "Merci de décrire votre besoin.";
+    if (!payload.besoin) {
+      nextErrors.besoin = "Merci de décrire votre besoin.";
     }
 
     if (Object.keys(nextErrors).length > 0) {
@@ -178,36 +178,36 @@ export function LeadForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="label" htmlFor="first_name">
+          <label className="label" htmlFor="prenom">
             Prénom
           </label>
           <input
-            id="first_name"
-            name="first_name"
+            id="prenom"
+            name="prenom"
             className="input"
             autoComplete="given-name"
-            aria-invalid={Boolean(errors.first_name)}
+            aria-invalid={Boolean(errors.prenom)}
             required
           />
-          {errors.first_name ? (
-            <p className="mt-2 text-sm text-red-600">{errors.first_name}</p>
+          {errors.prenom ? (
+            <p className="mt-2 text-sm text-red-600">{errors.prenom}</p>
           ) : null}
         </div>
 
         <div>
-          <label className="label" htmlFor="last_name">
+          <label className="label" htmlFor="nom">
             Nom
           </label>
           <input
-            id="last_name"
-            name="last_name"
+            id="nom"
+            name="nom"
             className="input"
             autoComplete="family-name"
-            aria-invalid={Boolean(errors.last_name)}
+            aria-invalid={Boolean(errors.nom)}
             required
           />
-          {errors.last_name ? (
-            <p className="mt-2 text-sm text-red-600">{errors.last_name}</p>
+          {errors.nom ? (
+            <p className="mt-2 text-sm text-red-600">{errors.nom}</p>
           ) : null}
         </div>
       </div>
@@ -232,39 +232,39 @@ export function LeadForm() {
         </div>
 
         <div>
-          <label className="label" htmlFor="phone">
+          <label className="label" htmlFor="telephone">
             Numéro de téléphone
           </label>
           <input
-            id="phone"
-            name="phone"
+            id="telephone"
+            name="telephone"
             type="tel"
             className="input"
             autoComplete="tel"
-            aria-invalid={Boolean(errors.phone)}
+            aria-invalid={Boolean(errors.telephone)}
             required
           />
-          {errors.phone ? (
-            <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
+          {errors.telephone ? (
+            <p className="mt-2 text-sm text-red-600">{errors.telephone}</p>
           ) : null}
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-[minmax(0,1fr)_11rem]">
         <div>
-          <label className="label" htmlFor="address">
+          <label className="label" htmlFor="adresse">
             Adresse postale
           </label>
           <input
-            id="address"
-            name="address"
+            id="adresse"
+            name="adresse"
             className="input"
             autoComplete="street-address"
-            aria-invalid={Boolean(errors.address)}
+            aria-invalid={Boolean(errors.adresse)}
             required
           />
-          {errors.address ? (
-            <p className="mt-2 text-sm text-red-600">{errors.address}</p>
+          {errors.adresse ? (
+            <p className="mt-2 text-sm text-red-600">{errors.adresse}</p>
           ) : null}
         </div>
 
@@ -291,20 +291,20 @@ export function LeadForm() {
       </div>
 
       <div>
-        <label className="label" htmlFor="message">
+        <label className="label" htmlFor="besoin">
           Votre besoin
         </label>
         <textarea
-          id="message"
-          name="message"
+          id="besoin"
+          name="besoin"
           rows={5}
           className="input min-h-36 resize-y"
           placeholder="Décrivez la prestation souhaitée, la surface, vos disponibilités ou le niveau d'urgence."
-          aria-invalid={Boolean(errors.message)}
+          aria-invalid={Boolean(errors.besoin)}
           required
         />
-        {errors.message ? (
-          <p className="mt-2 text-sm text-red-600">{errors.message}</p>
+        {errors.besoin ? (
+          <p className="mt-2 text-sm text-red-600">{errors.besoin}</p>
         ) : null}
       </div>
 

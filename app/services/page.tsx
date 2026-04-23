@@ -29,11 +29,10 @@ export default function ServicesPage() {
           <SectionHeading
             eyebrow="Avant / Après"
             title="Des résultats concrets là où ils comptent le plus"
-            description="Ces visuels ont leur place ici, dans la page services, parce qu'ils montrent immédiatement le niveau de transformation attendu après intervention."
           />
         </Reveal>
 
-        <div className="mt-12 mb-12 grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
+        <div className="mt-10 grid gap-8 md:grid-cols-[1.05fr_0.95fr]">
           <Reveal className="media-panel min-h-[320px] sm:min-h-[420px]" variant="zoom">
             <Image
               src={siteImages.services.src}
@@ -56,23 +55,23 @@ export default function ServicesPage() {
           </Reveal>
 
           <div id="avant-apres" className="grid gap-6">
-          {siteImages.results.map((image, index) => (
-            <Reveal
-              key={image.src}
-              className="media-panel min-h-[240px] sm:min-h-[280px]"
-              variant="zoom"
-              delay={index * 120}
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-              <div className="media-overlay-dark absolute inset-0" />
-            </Reveal>
-          ))}
+            {siteImages.results.map((image, index) => (
+              <Reveal
+                key={image.src}
+                className="media-panel min-h-[240px] sm:min-h-[280px]"
+                variant="zoom"
+                delay={index * 120}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="media-overlay-dark absolute inset-0" />
+              </Reveal>
+            ))}
           </div>
         </div>
 

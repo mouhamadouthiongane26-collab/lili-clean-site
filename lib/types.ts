@@ -52,24 +52,3 @@ export interface SiteSettings {
   }>;
   footerNote: string;
 }
-
-export interface LeadFormInput {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  customer_type: string;
-  service_type: string;
-  location: string;
-  surface: string;
-  frequency: string;
-  message: string;
-  consent: boolean;
-  website?: string;
-}
-
-export interface LeadFormState {
-  success: boolean;
-  message: string;
-  fieldErrors?: Partial<Record<keyof LeadFormInput, string>>;
-}

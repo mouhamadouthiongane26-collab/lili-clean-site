@@ -39,9 +39,9 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-ocean">Conservation</h2>
             <p className="mt-3">
-              Les données sont conservées de manière raisonnable dans Supabase, avec
-              un accès réservé à l’administration, uniquement le temps nécessaire au
-              traitement de votre demande et au suivi.
+              Le formulaire ouvre un e-mail prérempli. Les données ne sont pas
+              stockées dans une base du site et sont conservées uniquement dans les
+              échanges nécessaires au traitement de votre demande.
             </p>
           </section>
 

@@ -14,14 +14,12 @@ Site vitrine `Next.js` pour `Lilicleanservices`, pensé pour la conversion local
 ## Variables d'environnement
 
 - `NEXT_PUBLIC_SITE_URL`
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
 
-## Supabase
+## Formulaire
 
-- Le schéma SQL initial est dans [supabase/migrations/0001_init.sql](/Users/mouhamadoumoustaphathiongane/Documents/lili%20clean/supabase/migrations/0001_init.sql)
-- Le formulaire de contact enregistre maintenant les demandes dans la table `contacts`
-- Les autres tables sont prêtes pour une administration légère via `Supabase Studio`
+- Le formulaire de devis fonctionne sans backend.
+- Il ouvre un e-mail prérempli vers l'adresse de Lilicleanservices après validation des champs obligatoires.
+- Une version HTML/CSS/JavaScript autonome est disponible dans `public/formulaire-devis-lilicleanservice.html`.
 
 ## Contenu à remplacer avant production
 

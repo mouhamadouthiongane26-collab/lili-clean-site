@@ -3,7 +3,7 @@
 ## 1. Vue d'ensemble
 
 ### 1.1 Nom du projet
-Site vitrine professionnel pour `Lilicleanservices`, développé avec `Next.js` et `Supabase`.
+Site vitrine professionnel pour `Lilicleanservices`, développé avec `Next.js` et un formulaire de devis sans backend complexe.
 
 ### 1.2 Contexte
 `Lilicleanservices` est une entreprise de nettoyage qui a besoin d'une présence en ligne professionnelle pour :
@@ -23,8 +23,8 @@ Obtenir des demandes de devis et des prises de contact qualifiées depuis le sit
 - améliorer l'image de marque de `Lilicleanservices` ;
 - mettre en avant les services et avantages concurrentiels ;
 - être bien référencé localement sur Google ;
-- centraliser les leads dans `Supabase` ;
-- disposer d'une base administrable pour enrichir le contenu plus tard.
+- faciliter les demandes de devis par e-mail ;
+- disposer d'une base propre pour enrichir le contenu plus tard.
 
 ## 2. Objectifs business
 
@@ -89,8 +89,7 @@ Le MVP doit inclure :
 - avis clients ;
 - FAQ ;
 - SEO technique de base ;
-- intégration `Supabase` pour stocker les leads ;
-- panneau d'administration minimal via `Supabase` pour gérer les contenus dynamiques si nécessaire.
+- formulaire de devis simple sans backend complexe.
 
 ### 5.2 Hors périmètre MVP
 - paiement en ligne ;
@@ -175,10 +174,9 @@ Champs minimum :
 - consentement RGPD.
 
 Comportement attendu :
-- validation côté client et serveur ;
+- validation côté client ;
 - message de confirmation clair ;
-- sauvegarde dans `Supabase` ;
-- protection anti-spam ;
+- ouverture d'un e-mail prérempli ;
 - possibilité d'ajouter des notifications e-mail ultérieurement.
 
 ### 6.6 Témoignages
@@ -186,7 +184,7 @@ Objectif : renforcer la crédibilité.
 
 Fonctionnement :
 - affichage de témoignages sur l'accueil et éventuellement une page dédiée ;
-- possibilité de gérer les avis depuis `Supabase`.
+- possibilité de rendre les avis dynamiques ultérieurement.
 
 ### 6.7 FAQ
 Questions recommandées :
@@ -207,10 +205,10 @@ Le footer doit inclure :
 - mentions légales ;
 - politique de confidentialité.
 
-## 7. Fonctionnalités d'administration via Supabase
+## 7. Évolutions d'administration futures
 
-### 7.1 Base de données
-Tables minimales recommandées :
+### 7.1 Données administrables possibles
+Contenus à rendre administrables si un backend est ajouté plus tard :
 - `leads`
 - `testimonials`
 - `service_pages`
@@ -222,7 +220,7 @@ Tables minimales recommandées :
 - administrateur interne.
 
 ### 7.3 Authentification
-`Supabase Auth` pour l'administration uniquement.
+Authentification réservée à l'administration si une interface interne est ajoutée plus tard.
 
 ### 7.4 Cas d'usage admin
 - consulter les leads ;
@@ -258,7 +256,7 @@ Arborescence recommandée :
 3. Il consulte les services et éléments de réassurance.
 4. Il clique sur `Demander un devis`.
 5. Il remplit le formulaire.
-6. Les données sont enregistrées dans `Supabase`.
+6. Un e-mail prérempli s'ouvre pour envoyer la demande.
 7. Il reçoit un message de confirmation.
 
 ### 9.2 Parcours mobile rapide
@@ -393,11 +391,9 @@ Le site doit respecter les bonnes pratiques essentielles :
 ## 15. Sécurité et conformité
 
 ### 15.1 Sécurité
-- validation serveur des formulaires ;
-- protection anti-spam ;
-- limitation basique contre abus ;
-- variables d'environnement sécurisées ;
-- RLS sur les tables `Supabase`.
+- validation côté client des champs obligatoires ;
+- absence d'appel API inutile ;
+- absence de dépendance backend pour le formulaire.
 
 ### 15.2 RGPD
 Le site doit intégrer :
@@ -418,9 +414,8 @@ Le site doit intégrer :
 - `shadcn/ui` ou composants UI custom propres
 
 ### 16.2 Backend / data
-- `Supabase Database`
-- `Supabase Auth`
-- `Supabase Storage` si besoin d'images administrables
+- aucun backend requis pour le formulaire de devis
+- e-mail prérempli via `mailto:`
 
 ### 16.3 Déploiement
 - `Vercel` recommandé
@@ -531,8 +526,7 @@ Contenu minimum :
 - services ;
 - contact ;
 - devis ;
-- Supabase connecté ;
-- persistance des leads ;
+- formulaire de devis sans backend ;
 - mentions légales ;
 - SEO de base ;
 - responsive.
@@ -559,7 +553,7 @@ Le produit est considéré prêt pour le MVP si :
 - le branding est professionnel ;
 - les CTA sont visibles ;
 - le formulaire fonctionne ;
-- les leads arrivent en base `Supabase` ;
+- le formulaire ouvre un e-mail prérempli avec les informations saisies ;
 - les contenus juridiques de base sont présents ;
 - les métadonnées SEO sont en place ;
 - les performances sont satisfaisantes ;
@@ -596,7 +590,7 @@ Construire en priorité un `MVP conversion-first` :
 - homepage très solide ;
 - pages services claires ;
 - formulaire de devis simple ;
-- Supabase pour capter les leads ;
+- demande de devis par e-mail sans configuration technique ;
 - SEO local propre ;
 - design premium mais sobre.
 

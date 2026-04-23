@@ -9,13 +9,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@supabase/supabase-js": "latest",
+    "@supabase/supabase-js": "^2.104.0",
     "clsx": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "tailwind-merge": "latest",
-    "zod": "latest"
+    "tailwind-merge": "latest"
   },
   "devDependencies": {
     "@eslint/eslintrc": "latest",

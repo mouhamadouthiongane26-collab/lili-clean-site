@@ -310,29 +310,8 @@ export default function HomePage() {
       </section>
 
       <section className="bg-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-22 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Demande de devis"
-              title="Une prise de contact rapide, même si votre besoin n'entre pas encore dans une case."
-            />
-            <p className="mt-8 text-sm leading-7 text-ink/85">
-              Si vous préférez aller plus vite, vous pouvez aussi nous appeler{" "}
-              <span className="whitespace-nowrap">
-                au{" "}
-                <Link href={company.phoneHref} className="font-semibold text-ocean">
-                  {company.phoneDisplay}
-                </Link>
-              </span>{" "}
-              ou écrire directement sur{" "}
-              <Link href={company.whatsappHref} className="font-semibold text-ocean">
-                WhatsApp
-              </Link>
-              .
-            </p>
-          </Reveal>
-
-          <Reveal className="card" variant="up" delay={120}>
+        <div className="mx-auto max-w-5xl px-4 py-22 sm:px-6 lg:px-8">
+          <Reveal variant="up">
             <LeadForm />
           </Reveal>
         </div>

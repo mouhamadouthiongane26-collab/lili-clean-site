@@ -55,9 +55,6 @@ export default function AboutPage() {
                 <h2 className="mt-3 font-heading text-4xl leading-tight text-white">
                   Une entreprise qui rassure d’abord par son sérieux.
                 </h2>
-                <p className="mt-4 text-sm leading-8 text-white">
-                  Une image plus humaine et plus concrète pour montrer l’engagement sur le terrain.
-                </p>
               </div>
             </div>
           </Reveal>

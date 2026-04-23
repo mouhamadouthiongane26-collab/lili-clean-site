@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --font-body:
+    "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-heading:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Georgia", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 26%),
+    radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.08), transparent 24%),
+    #f8fafc;
+  color: #1f2937;
+  font-family: var(--font-body), sans-serif;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-mist;
+  }
+}
+
+@layer components {
+  .font-heading {
+    font-family: var(--font-heading), serif;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    box-shadow: 0 14px 32px rgba(30, 58, 138, 0.22);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 18px 38px rgba(30, 58, 138, 0.28);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border bg-white px-6 py-3 text-sm font-semibold text-ocean transition;
+    border-color: rgba(30, 58, 138, 0.18);
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(59, 130, 246, 0.35);
+    background-color: rgba(59, 130, 246, 0.07);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold text-accent transition;
+    border-color: rgba(16, 185, 129, 0.22);
+    background-color: rgba(16, 185, 129, 0.1);
+  }
+
+  .btn-ghost:hover {
+    background-color: rgba(16, 185, 129, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .card {
+    @apply rounded-[1.7rem] border bg-white p-7 shadow-soft transition duration-300;
+    border-color: rgba(30, 58, 138, 0.1);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 90px rgba(30, 58, 138, 0.14);
+  }
+
+  .hero-shell {
+    @apply overflow-hidden bg-grain-gradient;
+  }
+
+  .glass-panel {
+    @apply rounded-[1.8rem] border shadow-soft backdrop-blur;
+    border-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 0.96);
+  }
+
+  .input {
+    @apply w-full rounded-2xl border bg-white px-4 py-3 text-sm text-ink;
+    border-color: rgba(30, 58, 138, 0.14);
+  }
+
+  .input::placeholder {
+    color: rgba(24, 35, 47, 0.35);
+  }
+
+  .label {
+    @apply mb-2 block text-sm font-medium text-ink;
+    color: rgba(24, 35, 47, 0.78);
+  }
+
+  .media-panel {
+    @apply relative overflow-hidden rounded-[1.9rem] border shadow-soft;
+    border-color: rgba(30, 58, 138, 0.12);
+  }
+
+  .media-overlay-dark {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 22, 48, 0.22) 0%,
+      rgba(12, 30, 74, 0.56) 48%,
+      rgba(10, 22, 48, 0.88) 100%
+    );
+  }
+
+  .media-caption {
+    @apply rounded-[1.35rem] border p-5 backdrop-blur;
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(10, 22, 48, 0.62);
+  }
+
+  .email-link {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .reveal-base {
+    opacity: 0;
+    transition:
+      opacity 700ms ease,
+      transform 700ms ease,
+      filter 700ms ease;
+    will-change: opacity, transform, filter;
+  }
+
+  .reveal-up {
+    transform: translateY(28px);
+  }
+
+  .reveal-slide {
+    transform: translateX(-24px);
+  }
+
+  .reveal-zoom {
+    transform: scale(0.96);
+    filter: saturate(0.85);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .reveal-base,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    transition: none !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,59 @@
+import { PageHero } from "@/components/page-hero";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Politique de confidentialite",
+  description:
+    "Politique de confidentialite du site Lilicleanservices pour les demandes de contact et de devis.",
+  path: "/politique-de-confidentialite"
+});
+
+export default function PrivacyPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Confidentialite"
+        title="Une gestion des donnees simple, transparente et adaptee a un site vitrine."
+        description="Le formulaire du site collecte uniquement les données nécessaires à la réponse commerciale. La politique ci-dessous constitue une base prête à finaliser."
+      />
+
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <article className="card space-y-8 text-sm leading-8 text-ink/72">
+          <section>
+            <h2 className="text-xl font-semibold text-ocean">Donnees collectees</h2>
+            <p className="mt-3">
+              Les formulaires de contact et de devis collectent le nom, les
+              coordonnées, le type de besoin, la localisation approximative, la
+              fréquence souhaitée et le message libre.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-ocean">Finalite</h2>
+            <p className="mt-3">
+              Ces données servent uniquement à répondre aux demandes, préparer un
+              devis et assurer le suivi commercial des prospects.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-ocean">Conservation</h2>
+            <p className="mt-3">
+              Les données sont conservées de manière raisonnable dans Supabase, avec
+              un accès réservé à l’administration. Une durée précise pourra être
+              ajoutée avant mise en production finale.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-ocean">Vos droits</h2>
+            <p className="mt-3">
+              Vous pouvez demander l’accès, la rectification ou la suppression de vos
+              données en utilisant l’adresse de contact indiquée sur le site.
+            </p>
+          </section>
+        </article>
+      </section>
+    </>
+  );
+}

@@ -208,7 +208,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Cliente à domicile",
     quote:
-      "Intervention très sérieuse, logement impeccable après passage. Je recommande sans hésiter.",
+      "Intervention très sérieuse. Salle de bain et cuisine impeccables, finitions soignées. Je recommande sans hésiter.",
     rating: 5,
     note: undefined,
     isEditorial: false
@@ -216,7 +216,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Particulier",
     quote:
-      "Service rapide et efficace. La maison est parfaitement propre, travail de qualité.",
+      "Service rapide et efficace. Personne ponctuelle, et la maison était impeccable après le passage.",
     rating: 5,
     note: undefined,
     isEditorial: false
@@ -224,7 +224,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Client satisfait",
     quote:
-      "Très bon contact, personne ponctuelle et professionnelle. Résultat au rendez-vous.",
+      "Très bon contact, discret et professionnel. Les vitres et les sols étaient nickel, résultat au rendez-vous.",
     rating: 5,
     note: undefined,
     isEditorial: false

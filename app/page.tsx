@@ -193,7 +193,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
-              eyebrow="Pourquoi choisir Lilicleanservices"
+              eyebrow="Confiance et qualité"
               title="Pourquoi choisir Lilicleanservices ?"
               description="Un service fiable, soigné et pensé pour vous garantir un intérieur impeccable, sans contrainte."
             />
@@ -267,7 +267,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-22 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
-              eyebrow="Avis clients"
+              eyebrow="Témoignages"
               title="Avis clients"
               description="La satisfaction de nos clients est notre priorité. Découvrez leurs retours après intervention."
             />

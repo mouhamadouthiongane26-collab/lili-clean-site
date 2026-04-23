@@ -19,7 +19,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Un contact direct, local et sans detour."
-        description="Le site met en avant les canaux les plus utiles pour convertir vite : telephone, WhatsApp et formulaire."
+        description="Contactez-nous facilement par téléphone, WhatsApp ou via le formulaire."
       />
 
       <section className="mx-auto grid max-w-7xl gap-8 px-4 py-18 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">

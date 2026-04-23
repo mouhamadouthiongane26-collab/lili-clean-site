@@ -272,9 +272,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-22 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
-              eyebrow="Avis et preuve sociale"
-              title="Une section prête a accueillir de vrais retours clients."
-              description="Les cartes ci-dessous sont des contenus éditoriaux temporaires, volontairement signalés, pour poser la structure du site avant intégration d'avis réels."
+              eyebrow="Avis clients"
+              title="Avis clients"
+              description="La satisfaction de nos clients est notre priorité. Découvrez leurs retours après intervention."
             />
           </Reveal>
 
@@ -282,22 +282,23 @@ export default function HomePage() {
             {testimonials.map((testimonial, index) => (
               <Reveal key={testimonial.quote} delay={index * 90}>
                 <article className="card h-full">
-                  <p className="text-gold">{"★★★★★"}</p>
+                  <p className="text-gold">{"⭐⭐⭐⭐⭐"}</p>
                   <p className="mt-5 text-sm leading-7 text-ink/85">
-                    {testimonial.quote}
+                    “{testimonial.quote}”
                   </p>
                   <div className="mt-6 border-t border-ocean/8 pt-5">
-                    <p className="font-semibold text-ocean">{testimonial.name}</p>
-                    {testimonial.note ? (
-                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-ink/45">
-                        {testimonial.note}
-                      </p>
-                    ) : null}
+                    <p className="font-semibold text-ocean">— {testimonial.name}</p>
                   </div>
                 </article>
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={360}>
+            <p className="mt-10 text-sm leading-7 text-ink/70">
+              D&apos;autres avis seront bientôt disponibles.
+            </p>
+          </Reveal>
         </div>
       </section>
 

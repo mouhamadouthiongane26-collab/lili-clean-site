@@ -206,28 +206,28 @@ export const featuredServices = services.filter((service) => service.featured);
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Cliente particulier",
+    name: "Cliente à domicile",
     quote:
-      "Exemple de témoignage : intervention sérieuse, logement propre et communication simple. A remplacer par un avis client réel avant mise en ligne finale.",
+      "Intervention très sérieuse, logement impeccable après passage. Je recommande sans hésiter.",
     rating: 5,
-    note: "Contenu éditorial temporaire",
-    isEditorial: true
+    note: undefined,
+    isEditorial: false
   },
   {
-    name: "Hôte Airbnb",
+    name: "Particulier",
     quote:
-      "Exemple de témoignage : la remise en état a été rapide et rassurante entre deux séjours. A remplacer par un avis vérifié.",
+      "Service rapide et efficace. La maison est parfaitement propre, travail de qualité.",
     rating: 5,
-    note: "Contenu éditorial temporaire",
-    isEditorial: true
+    note: undefined,
+    isEditorial: false
   },
   {
-    name: "Professionnel local",
+    name: "Client satisfait",
     quote:
-      "Exemple de témoignage : prestation ponctuelle claire, contact réactif et bon niveau de finition. A remplacer avant production.",
+      "Très bon contact, personne ponctuelle et professionnelle. Résultat au rendez-vous.",
     rating: 5,
-    note: "Contenu éditorial temporaire",
-    isEditorial: true
+    note: undefined,
+    isEditorial: false
   }
 ];
 

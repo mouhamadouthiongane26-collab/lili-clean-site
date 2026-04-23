@@ -71,17 +71,6 @@ export default function ServicesPage() {
                 className="object-cover"
               />
               <div className="media-overlay-dark absolute inset-0" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="media-caption max-w-sm text-white">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-foam">
-                    Avant / Après {index + 1}
-                  </p>
-                  <p className="mt-3 text-base leading-7 text-white">
-                    Une différence visible, plus nette et plus rassurante après
-                    intervention.
-                  </p>
-                </div>
-              </div>
             </Reveal>
           ))}
           </div>

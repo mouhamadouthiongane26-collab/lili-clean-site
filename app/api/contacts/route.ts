@@ -4,8 +4,11 @@ import { getSupabaseAdminClient, getSupabaseServerClient } from "@/lib/supabase"
 import { normalizePhone } from "@/lib/utils";
 
 type ContactPayload = {
-  full_name?: unknown;
+  first_name?: unknown;
+  last_name?: unknown;
+  email?: unknown;
   phone?: unknown;
+  address?: unknown;
   message?: unknown;
 };
 
@@ -13,6 +16,10 @@ const supabaseTimeoutMs = 8000;
 
 function cleanString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function withTimeout<T>(promise: Promise<T>, timeoutMs: number) {
@@ -37,25 +44,45 @@ export async function POST(request: Request) {
     const payload = (await request.json()) as ContactPayload;
     console.log("[contacts] Donnees recues :", JSON.stringify(payload));
 
-    const fullName = cleanString(payload.full_name);
+    const firstName = cleanString(payload.first_name);
+    const lastName = cleanString(payload.last_name);
+    const email = cleanString(payload.email).toLowerCase();
     const phone = normalizePhone(cleanString(payload.phone));
+    const address = cleanString(payload.address);
     const message = cleanString(payload.message);
+    const fieldErrors: Record<string, string> = {};
 
-    if (!fullName || !phone) {
-      const fieldErrors: Record<string, string> = {};
+    if (!firstName) {
+      fieldErrors.first_name = "Le prénom est requis.";
+    }
 
-      if (!fullName) {
-        fieldErrors.full_name = "Le nom est requis.";
-      }
+    if (!lastName) {
+      fieldErrors.last_name = "Le nom est requis.";
+    }
 
-      if (!phone) {
-        fieldErrors.phone = "Le téléphone est requis.";
-      }
+    if (!email) {
+      fieldErrors.email = "L'adresse email est requise.";
+    } else if (!isValidEmail(email)) {
+      fieldErrors.email = "L'adresse email n'est pas valide.";
+    }
 
+    if (!phone) {
+      fieldErrors.phone = "Le téléphone est requis.";
+    }
+
+    if (!address) {
+      fieldErrors.address = "L'adresse postale est requise.";
+    }
+
+    if (!message) {
+      fieldErrors.message = "Votre besoin est requis.";
+    }
+
+    if (Object.keys(fieldErrors).length > 0) {
       return NextResponse.json(
         {
           success: false,
-          message: "Merci de renseigner votre nom et votre téléphone.",
+          message: "Merci de corriger les champs indiqués.",
           fieldErrors
         },
         { status: 400 }
@@ -78,11 +105,12 @@ export async function POST(request: Request) {
     }
 
     const supabaseClient = supabase;
+    const fullName = `${firstName} ${lastName}`.trim();
     const contact = {
       nom: fullName,
-      email: "non-renseigne@lilicleanservice.local",
+      email,
       telephone: phone,
-      message
+      message: [`Adresse postale : ${address}`, "", "Besoin :", message].join("\n")
     };
 
     console.log("[contacts] Insertion Supabase :", JSON.stringify(contact));

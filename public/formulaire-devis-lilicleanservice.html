@@ -8,11 +8,13 @@
       :root {
         --blue: #2f80ed;
         --blue-dark: #1557b0;
+        --green: #27ae60;
         --text: #1f2937;
         --muted: #64748b;
         --line: #d8e7fb;
         --bg: #f4f9ff;
         --white: #ffffff;
+        --error: #dc2626;
       }
 
       * {
@@ -37,7 +39,7 @@
 
       .quote-form {
         width: 100%;
-        max-width: 560px;
+        max-width: 760px;
         padding: 28px;
         border: 1px solid var(--line);
         border-radius: 20px;
@@ -59,7 +61,13 @@
         line-height: 1.6;
       }
 
-      .quote-field {
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .field {
         margin-bottom: 18px;
       }
 
@@ -85,7 +93,7 @@
       }
 
       textarea {
-        min-height: 112px;
+        min-height: 144px;
         resize: vertical;
       }
 
@@ -95,21 +103,21 @@
         box-shadow: 0 0 0 4px rgba(47, 128, 237, 0.14);
       }
 
-      .quote-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-height: 48px;
-        border: 0;
-        border-radius: 999px;
-        background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-        color: var(--white);
-        cursor: pointer;
-        font-size: 15px;
-        font-weight: 800;
-        padding: 14px 28px;
-        box-shadow: 0 16px 34px rgba(47, 128, 237, 0.28);
+      .error-text {
+        display: none;
+        margin: 8px 0 0;
+        color: var(--error);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .field.error input,
+      .field.error textarea {
+        border-color: var(--error);
+      }
+
+      .field.error .error-text {
+        display: block;
       }
 
       .form-message {
@@ -132,6 +140,28 @@
         color: #991b1b;
       }
 
+      .quote-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 48px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+        color: var(--white);
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 800;
+        padding: 14px 28px;
+        box-shadow: 0 16px 34px rgba(47, 128, 237, 0.28);
+      }
+
+      .quote-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
       @media (max-width: 640px) {
         .quote-section {
           padding: 28px 12px;
@@ -140,45 +170,94 @@
         .quote-form {
           padding: 22px;
         }
+
+        .grid {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
       }
     </style>
   </head>
   <body>
     <section class="quote-section">
-      <form class="quote-form" id="quoteForm">
-        <h2>Demande rapide</h2>
+      <form class="quote-form" id="quoteForm" novalidate>
+        <h2>Demande de devis</h2>
         <p class="intro">
-          Laissez votre nom, votre téléphone et votre besoin. Nous vous rappelons rapidement.
+          Remplissez vos coordonnées et votre besoin. Nous vous recontactons rapidement.
         </p>
 
-        <div class="quote-field">
-          <label for="fullName">Nom</label>
-          <input id="fullName" name="fullName" autocomplete="name" required />
+        <div class="grid">
+          <div class="field" data-field="first_name">
+            <label for="firstName">Prénom</label>
+            <input id="firstName" name="first_name" autocomplete="given-name" />
+            <p class="error-text"></p>
+          </div>
+
+          <div class="field" data-field="last_name">
+            <label for="lastName">Nom</label>
+            <input id="lastName" name="last_name" autocomplete="family-name" />
+            <p class="error-text"></p>
+          </div>
         </div>
 
-        <div class="quote-field">
-          <label for="phone">Téléphone</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+        <div class="grid">
+          <div class="field" data-field="email">
+            <label for="email">Adresse email</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+            <p class="error-text"></p>
+          </div>
+
+          <div class="field" data-field="phone">
+            <label for="phone">Numéro de téléphone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" />
+            <p class="error-text"></p>
+          </div>
         </div>
 
-        <div class="quote-field">
-          <label for="message">Besoin</label>
+        <div class="field" data-field="address">
+          <label for="address">Adresse postale</label>
+          <input id="address" name="address" autocomplete="street-address" />
+          <p class="error-text"></p>
+        </div>
+
+        <div class="field" data-field="message">
+          <label for="message">Votre besoin</label>
           <textarea
             id="message"
             name="message"
-            placeholder="Ex. ménage, vitres, grand nettoyage..."
+            placeholder="Décrivez la prestation souhaitée, la surface, vos disponibilités ou le niveau d'urgence."
           ></textarea>
+          <p class="error-text"></p>
         </div>
 
-        <button class="quote-button" type="submit">Envoyer ma demande</button>
+        <button class="quote-button" type="submit">Envoyer la demande</button>
       </form>
     </section>
 
     <script>
       const form = document.getElementById("quoteForm");
+      const button = form.querySelector(".quote-button");
 
-      function value(id) {
-        return document.getElementById(id).value.trim();
+      function value(name) {
+        return form.elements[name].value.trim();
+      }
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      function clearErrors() {
+        form.querySelectorAll(".field").forEach(function (field) {
+          field.classList.remove("error");
+          field.querySelector(".error-text").textContent = "";
+        });
+      }
+
+      function setError(name, text) {
+        const field = form.querySelector('[data-field="' + name + '"]');
+
+        field.classList.add("error");
+        field.querySelector(".error-text").textContent = text;
       }
 
       function showMessage(type, text) {
@@ -192,19 +271,51 @@
         message.className = "form-message " + type;
         message.textContent = text;
         message.setAttribute("aria-live", "polite");
-        form.insertBefore(message, form.querySelector(".quote-button"));
+        form.insertBefore(message, button);
+      }
+
+      function validate(payload) {
+        const errors = {};
+
+        if (!payload.first_name) errors.first_name = "Merci d'indiquer votre prénom.";
+        if (!payload.last_name) errors.last_name = "Merci d'indiquer votre nom.";
+        if (!payload.email) errors.email = "Merci d'indiquer votre adresse email.";
+        else if (!isValidEmail(payload.email)) {
+          errors.email = "Merci d'indiquer une adresse email valide.";
+        }
+        if (!payload.phone) errors.phone = "Merci d'indiquer votre numéro de téléphone.";
+        if (!payload.address) errors.address = "Merci d'indiquer votre adresse postale.";
+        if (!payload.message) errors.message = "Merci de décrire votre besoin.";
+
+        return errors;
       }
 
       form.addEventListener("submit", async function (event) {
         event.preventDefault();
+        clearErrors();
 
         const payload = {
-          full_name: value("fullName"),
+          first_name: value("first_name"),
+          last_name: value("last_name"),
+          email: value("email"),
           phone: value("phone"),
+          address: value("address"),
           message: value("message")
         };
+        const errors = validate(payload);
+
+        if (Object.keys(errors).length > 0) {
+          Object.keys(errors).forEach(function (name) {
+            setError(name, errors[name]);
+          });
+          form.elements[Object.keys(errors)[0]].focus();
+          showMessage("error", "Merci de corriger les champs indiqués.");
+          return;
+        }
 
         console.log("[StaticLeadForm] Donnees envoyees :", payload);
+        button.disabled = true;
+        button.textContent = "Envoi en cours...";
 
         try {
           const response = await fetch("/api/contacts", {
@@ -241,6 +352,9 @@
               ? error.message
               : "Une erreur est survenue. Merci de réessayer dans un instant."
           );
+        } finally {
+          button.disabled = false;
+          button.textContent = "Envoyer la demande";
         }
       });
     </script>

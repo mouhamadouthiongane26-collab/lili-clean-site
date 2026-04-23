@@ -26,10 +26,6 @@ export const siteImages = {
   },
   results: [
     {
-      src: "/images/avant-apres-1 08.29.08.jpeg",
-      alt: "Avant apres nettoyage maison avec difference visible apres intervention"
-    },
-    {
       src: "/images/avant-apres-2.jpeg",
       alt: "Resultat avant apres nettoyage interieur pour service professionnel"
     }
@@ -38,8 +34,8 @@ export const siteImages = {
 
 const serviceCardImages: Record<string, SiteImageAsset> = {
   "menage-a-domicile-regulier": {
-    src: "/images/salon propre.jpeg",
-    alt: "Salon propre apres une prestation de menage regulier"
+    src: "/images/femme-menage 08.29.06.jpeg",
+    alt: "Professionnelle du nettoyage a domicile"
   },
   "grand-nettoyage-nettoyage-de-printemps": {
     src: "/images/hommes-menage.jpeg",
@@ -50,8 +46,8 @@ const serviceCardImages: Record<string, SiteImageAsset> = {
     alt: "Interieur propre prepare pour une location courte duree"
   },
   "nettoyage-apres-demenagement": {
-    src: "/images/avant-apres-1 08.29.08.jpeg",
-    alt: "Avant apres montrant la remise en ordre d un logement"
+    src: "/images/salon propre.jpeg",
+    alt: "Logement propre et remis en ordre apres intervention"
   },
   "nettoyage-des-vitres": {
     src: "/images/IMAGE.jpeg",

@@ -171,7 +171,7 @@ export default function HomePage() {
           <div className="grid gap-6 sm:grid-cols-2">
             {featuredServices.map((service, index) => (
               <Reveal key={service.slug} delay={index * 90}>
-                <ServiceCard service={service} />
+                <ServiceCard service={service} showImage={false} />
               </Reveal>
             ))}
           </div>

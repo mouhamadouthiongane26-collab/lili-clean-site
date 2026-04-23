@@ -17,9 +17,9 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 26%),
-    radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.08), transparent 24%),
-    #f8fafc;
+    radial-gradient(circle at top left, rgba(47, 128, 237, 0.12), transparent 26%),
+    radial-gradient(circle at 100% 0%, rgba(39, 174, 96, 0.08), transparent 24%),
+    #f5f7fa;
   color: #1f2937;
   font-family: var(--font-body), sans-serif;
 }
@@ -46,45 +46,45 @@ body {
 
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    box-shadow: 0 14px 32px rgba(30, 58, 138, 0.22);
+    background: linear-gradient(135deg, #2f80ed 0%, #1f6fe0 100%);
+    box-shadow: 0 14px 32px rgba(47, 128, 237, 0.24);
   }
 
   .btn-primary:hover {
-    box-shadow: 0 18px 38px rgba(30, 58, 138, 0.28);
+    box-shadow: 0 18px 38px rgba(47, 128, 237, 0.32);
     transform: translateY(-1px);
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-full border bg-white px-6 py-3 text-sm font-semibold text-ocean transition;
-    border-color: rgba(30, 58, 138, 0.18);
+    border-color: rgba(47, 128, 237, 0.22);
   }
 
   .btn-secondary:hover {
-    border-color: rgba(59, 130, 246, 0.35);
-    background-color: rgba(59, 130, 246, 0.07);
+    border-color: rgba(47, 128, 237, 0.38);
+    background-color: rgba(47, 128, 237, 0.08);
     transform: translateY(-1px);
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold text-accent transition;
-    border-color: rgba(16, 185, 129, 0.22);
-    background-color: rgba(16, 185, 129, 0.1);
+    border-color: rgba(39, 174, 96, 0.24);
+    background-color: rgba(39, 174, 96, 0.1);
   }
 
   .btn-ghost:hover {
-    background-color: rgba(16, 185, 129, 0.18);
+    background-color: rgba(39, 174, 96, 0.16);
     transform: translateY(-1px);
   }
 
   .card {
     @apply rounded-[1.7rem] border bg-white p-7 shadow-soft transition duration-300;
-    border-color: rgba(30, 58, 138, 0.1);
+    border-color: rgba(47, 128, 237, 0.12);
   }
 
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 30px 90px rgba(30, 58, 138, 0.14);
+    box-shadow: 0 30px 90px rgba(47, 128, 237, 0.16);
   }
 
   .hero-shell {
@@ -99,7 +99,7 @@ body {
 
   .input {
     @apply w-full rounded-2xl border bg-white px-4 py-3 text-sm text-ink;
-    border-color: rgba(30, 58, 138, 0.14);
+    border-color: rgba(47, 128, 237, 0.16);
   }
 
   .input::placeholder {
@@ -113,7 +113,7 @@ body {
 
   .media-panel {
     @apply relative overflow-hidden rounded-[1.9rem] border shadow-soft;
-    border-color: rgba(30, 58, 138, 0.12);
+    border-color: rgba(47, 128, 237, 0.14);
   }
 
   .media-overlay-dark {

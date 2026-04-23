@@ -4,6 +4,7 @@
 
 :root {
   color-scheme: light;
+  --header-offset: 5.5rem;
   --font-body:
     "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", sans-serif;
   --font-heading:
@@ -40,6 +41,10 @@ body {
 }
 
 @layer components {
+  .quote-form-target {
+    scroll-margin-top: calc(var(--header-offset) + 0.75rem);
+  }
+
   .font-heading {
     font-family: var(--font-heading), serif;
   }
@@ -164,6 +169,12 @@ body {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-offset: 5.75rem;
   }
 }
 

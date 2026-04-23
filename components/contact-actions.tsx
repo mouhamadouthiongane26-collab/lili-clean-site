@@ -1,7 +1,7 @@
-import Link from "next/link";
-
 import { company } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import { QuoteLink } from "@/components/quote-link";
+import Link from "next/link";
 
 interface ContactActionsProps {
   className?: string;
@@ -20,9 +20,7 @@ export function ContactActions({
         className
       )}
     >
-      <Link href="/devis" className="btn-primary text-center">
-        Demander un devis
-      </Link>
+      <QuoteLink className="btn-primary text-center">Demander un devis</QuoteLink>
       <Link href={company.phoneHref} className="btn-secondary text-center">
         Appeler maintenant
       </Link>

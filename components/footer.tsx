@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { QuoteLink } from "@/components/quote-link";
 import { company, siteSettings } from "@/lib/data";
 
 export function Footer() {
@@ -26,9 +27,15 @@ export function Footer() {
           <ul className="mt-5 space-y-3">
             {siteSettings.navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-sm text-ink/80 hover:text-sky">
-                  {item.label}
-                </Link>
+                {item.href === "/devis" ? (
+                  <QuoteLink className="text-sm text-ink/80 hover:text-sky">
+                    {item.label}
+                  </QuoteLink>
+                ) : (
+                  <Link href={item.href} className="text-sm text-ink/80 hover:text-sky">
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
             <li>

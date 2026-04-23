@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { QuoteLink } from "@/components/quote-link";
 import { company, siteSettings } from "@/lib/data";
 
 export function Header() {
@@ -22,13 +23,22 @@ export function Header() {
 
         <nav className="hidden items-center gap-10 lg:flex">
           {siteSettings.navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-base font-medium text-ink/80 underline-offset-8 transition hover:text-ocean hover:underline"
-            >
-              {item.label}
-            </Link>
+            item.href === "/devis" ? (
+              <QuoteLink
+                key={item.href}
+                className="text-base font-medium text-ink/80 underline-offset-8 transition hover:text-ocean hover:underline"
+              >
+                {item.label}
+              </QuoteLink>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-base font-medium text-ink/80 underline-offset-8 transition hover:text-ocean hover:underline"
+              >
+                {item.label}
+              </Link>
+            )
           ))}
         </nav>
 
@@ -36,9 +46,7 @@ export function Header() {
           <Link href={company.whatsappHref} className="btn-secondary">
             WhatsApp
           </Link>
-          <Link href="/devis" className="btn-primary">
-            Demander un devis
-          </Link>
+          <QuoteLink className="btn-primary">Demander un devis</QuoteLink>
         </div>
       </div>
     </header>

@@ -3,7 +3,10 @@ const googleFormUrl =
 
 export function LeadForm() {
   return (
-    <section className="mx-auto my-10 w-full max-w-[800px] rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-xl sm:my-14 sm:p-6">
+    <section
+      id="devis"
+      className="quote-form-target mx-auto my-10 w-full max-w-[800px] rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-xl sm:my-14 sm:p-6"
+    >
       <div className="overflow-hidden rounded-[1.5rem] border border-ocean/10 bg-white shadow-soft">
         <div className="bg-blue-600 px-6 py-5 text-white">
           <h2 className="font-heading text-3xl sm:text-4xl">Demande de devis</h2>

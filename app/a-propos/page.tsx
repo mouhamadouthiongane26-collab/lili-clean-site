@@ -15,15 +15,15 @@ export const metadata = buildMetadata({
 const values = [
   {
     title: "Rigueur",
-    body: "Le site et le discours de marque sont conçus pour transmettre une promesse simple : faire proprement ce qui a été promis."
+    body: "Un travail soigné et professionnel à chaque intervention. Nous respectons nos engagements pour vous garantir un résultat impeccable."
   },
   {
     title: "Proximite",
-    body: "L'ancrage local autour de Saint-Julien-de-l'Escap est volontaire. Il aide à rassurer et à garder un contact direct."
+    body: "Basée à Saint-Julien-de-l’Escap, nous intervenons rapidement et restons à votre écoute pour répondre à vos besoins."
   },
   {
     title: "Souplesse",
-    body: "Le MVP doit couvrir à la fois des besoins réguliers, des urgences ponctuelles et des situations plus saisonnières."
+    body: "Des prestations adaptées à votre situation : entretien régulier, grand nettoyage ou intervention ponctuelle selon vos besoins."
   }
 ];
 

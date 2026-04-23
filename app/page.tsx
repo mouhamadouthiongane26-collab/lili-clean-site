@@ -144,12 +144,25 @@ export default function HomePage() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
-          {featuredServices.map((service, index) => (
-            <Reveal key={service.slug} delay={index * 90}>
-              <ServiceCard service={service} />
-            </Reveal>
-          ))}
+        <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <Reveal className="media-panel min-h-[420px]" variant="zoom">
+            <Image
+              src={siteImages.servicesVisual.src}
+              alt={siteImages.servicesVisual.alt}
+              fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,24,39,0.08),rgba(17,24,39,0.28))]" />
+          </Reveal>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            {featuredServices.map((service, index) => (
+              <Reveal key={service.slug} delay={index * 90}>
+                <ServiceCard service={service} />
+              </Reveal>
+            ))}
+          </div>
         </div>
 
         <Reveal className="mt-10" delay={180}>

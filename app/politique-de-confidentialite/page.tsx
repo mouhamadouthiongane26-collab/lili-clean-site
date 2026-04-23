@@ -13,8 +13,8 @@ export default function PrivacyPage() {
     <>
       <PageHero
         eyebrow="Confidentialite"
-        title="Une gestion des donnees simple, transparente et adaptee a un site vitrine."
-        description="Le formulaire du site collecte uniquement les données nécessaires à la réponse commerciale. La politique ci-dessous constitue une base prête à finaliser."
+        title="Une gestion des donnees simple et transparente."
+        description="Le formulaire collecte uniquement les informations nécessaires pour répondre à votre demande et préparer un devis."
       />
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
@@ -40,8 +40,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-ocean">Conservation</h2>
             <p className="mt-3">
               Les données sont conservées de manière raisonnable dans Supabase, avec
-              un accès réservé à l’administration. Une durée précise pourra être
-              ajoutée avant mise en production finale.
+              un accès réservé à l’administration, uniquement le temps nécessaire au
+              traitement de votre demande et au suivi.
             </p>
           </section>
 

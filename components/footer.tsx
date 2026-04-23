@@ -12,9 +12,11 @@ export function Footer() {
             {company.tagline} Basé à {company.city}, le site met en avant un
             service réactif, humain et facile à contacter.
           </p>
-          <p className="mt-6 text-xs uppercase tracking-[0.24em] text-ink/45">
-            {siteSettings.footerNote}
-          </p>
+          {siteSettings.footerNote ? (
+            <p className="mt-6 text-xs uppercase tracking-[0.24em] text-ink/45">
+              {siteSettings.footerNote}
+            </p>
+          ) : null}
         </div>
 
         <div>

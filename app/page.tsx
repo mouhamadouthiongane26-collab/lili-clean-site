@@ -152,7 +152,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Services phares"
             title="Des prestations pensées pour le quotidien, les rotations et les remises en ordre."
-            description="Le MVP met en avant les besoins les plus concrets pour lancer le site avec une proposition claire et immédiatement vendable."
+            description="Des prestations de nettoyage utiles et claires, pour répondre simplement à vos besoins."
           />
         </Reveal>
 

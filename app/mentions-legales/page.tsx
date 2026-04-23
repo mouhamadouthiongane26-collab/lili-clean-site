@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Mentions legales",
   description:
-    "Mentions legales du site vitrine Lilicleanservices. A completer avant mise en production finale.",
+    "Mentions legales de Lilicleanservices.",
   path: "/mentions-legales"
 });
 
@@ -14,8 +14,8 @@ export default function LegalNoticePage() {
     <>
       <PageHero
         eyebrow="Mentions legales"
-        title="Une base juridique prête à être finalisée avant la mise en ligne."
-        description="Cette page est intégrée au MVP avec les informations actuellement disponibles. Les éléments réglementaires définitifs devront être complétés avant production."
+        title="Les informations légales du site Lilicleanservices."
+        description="Retrouvez ici les informations essentielles concernant l’éditeur du site et son hébergement."
       />
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
@@ -31,17 +31,16 @@ export default function LegalNoticePage() {
           <section>
             <h2 className="text-xl font-semibold text-ocean">Hebergement</h2>
             <p className="mt-3">
-              Hébergement recommandé sur Vercel. Renseigner les informations exactes
-              de l’hébergeur utilisé au moment de la mise en ligne.
+              Le site est hébergé sur Vercel.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold text-ocean">Statut</h2>
             <p className="mt-3">
-              Les mentions légales définitives devront être complétées avec la forme
-              juridique, le numéro SIRET, le responsable de publication et les
-              coordonnées réglementaires finales.
+              Lilicleanservices est un service de nettoyage à domicile basé à{" "}
+              {company.city}. Pour toute question, vous pouvez nous contacter via le
+              téléphone ou l’email ci-dessus.
             </p>
           </section>
         </article>

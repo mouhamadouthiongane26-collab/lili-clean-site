@@ -272,6 +272,5 @@ export const siteSettings: SiteSettings = {
     { label: "Contact", href: "/contact" },
     { label: "Devis", href: "/devis" }
   ],
-  footerNote:
-    "Site vitrine en cours de lancement. Les témoignages et les mentions légales pourront être enrichis avant la mise en production finale."
+  footerNote: ""
 };

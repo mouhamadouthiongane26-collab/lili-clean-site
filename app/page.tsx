@@ -244,7 +244,6 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Comment ca se passe"
               title="Trois etapes simples pour passer du besoin au rendez-vous."
-              description="Le parcours utilisateur est court, lisible et pensé pour fonctionner aussi bien sur mobile que sur desktop."
             />
           </Reveal>
 

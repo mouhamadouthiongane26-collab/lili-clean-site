@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { QuoteLink } from "@/components/quote-link";
@@ -5,18 +6,23 @@ import { company, siteSettings } from "@/lib/data";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-ocean/10 bg-[#F9FAFB] shadow-[0_10px_30px_rgba(31,41,55,0.06)]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-ocean/10 bg-white/95 shadow-[0_10px_30px_rgba(24,92,55,0.08)] backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:gap-6 sm:px-6 lg:px-8">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-ocean/20 bg-white text-xl font-semibold text-ocean shadow-soft">
-            Li
-          </div>
+          <Image
+            src="/images/LOGO.png"
+            alt="LiliCleanServices - Nettoyage professionnel"
+            width={56}
+            height={56}
+            priority
+            className="h-12 w-12 rounded-full border border-ocean/10 bg-white object-contain p-1 shadow-soft sm:h-14 sm:w-14"
+          />
           <div className="min-w-0">
-            <p className="font-heading text-2xl leading-none text-ink">
+            <p className="font-heading text-lg leading-tight text-ink sm:text-2xl">
               {company.name}
             </p>
-            <p className="mt-1 text-xs uppercase tracking-[0.22em] text-ink/60">
-              Nettoyage local premium
+            <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-ocean/80 sm:text-xs sm:tracking-[0.22em]">
+              Nettoyage professionnel
             </p>
           </div>
         </Link>
@@ -26,7 +32,7 @@ export function Header() {
             item.href === "/devis" ? (
               <QuoteLink
                 key={item.href}
-                className="text-base font-medium text-ink/80 underline-offset-8 transition hover:text-ocean hover:underline"
+                className="text-base font-medium text-sky underline-offset-8 transition hover:text-accent hover:underline"
               >
                 {item.label}
               </QuoteLink>
@@ -34,7 +40,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-base font-medium text-ink/80 underline-offset-8 transition hover:text-ocean hover:underline"
+                className="text-base font-medium text-sky underline-offset-8 transition hover:text-accent hover:underline"
               >
                 {item.label}
               </Link>

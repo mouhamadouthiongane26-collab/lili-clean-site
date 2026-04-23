@@ -9,23 +9,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#1F2937",
-        ocean: "#2F80ED",
-        sky: "#1F6FE0",
-        mist: "#F5F7FA",
-        foam: "#EAF4FF",
-        accent: "#27AE60",
+        ink: "#1F2933",
+        ocean: "#185C37",
+        sky: "#D61F75",
+        mist: "#F6F8F6",
+        foam: "#FCE7F3",
+        accent: "#2F8F46",
         gold: "#B58D53"
       },
       boxShadow: {
-        soft: "0 25px 80px rgba(47, 128, 237, 0.14)"
+        soft: "0 24px 60px rgba(24, 92, 55, 0.12)"
       },
       borderRadius: {
         xl2: "1.5rem"
       },
       backgroundImage: {
         "grain-gradient":
-          "radial-gradient(circle at top left, rgba(47,128,237,0.16), transparent 36%), radial-gradient(circle at top right, rgba(39,174,96,0.12), transparent 42%), linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%)"
+          "radial-gradient(circle at top left, rgba(214,31,117,0.14), transparent 34%), radial-gradient(circle at top right, rgba(47,143,70,0.14), transparent 40%), linear-gradient(180deg, #ffffff 0%, #f6f8f6 100%)"
       }
     }
   },

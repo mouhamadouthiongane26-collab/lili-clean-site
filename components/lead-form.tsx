@@ -5,18 +5,18 @@ export function LeadForm() {
   return (
     <section
       id="devis"
-      className="quote-form-target mx-auto my-10 w-full max-w-[800px] rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-xl sm:my-14 sm:p-6"
+      className="quote-form-target mx-auto my-10 w-full max-w-[800px] rounded-[1.75rem] border border-ocean/10 bg-mist p-4 shadow-xl sm:my-14 sm:p-6"
     >
       <div className="overflow-hidden rounded-[1.5rem] border border-ocean/10 bg-white shadow-soft">
-        <div className="bg-blue-600 px-6 py-5 text-white">
+        <div className="bg-sky px-6 py-5 text-white">
           <h2 className="font-heading text-3xl sm:text-4xl">Demande de devis</h2>
-          <p className="mt-2 text-sm leading-6 text-blue-50">
+          <p className="mt-2 text-sm leading-6 text-white/90">
             Remplissez le formulaire ci-dessous, nous vous répondrons rapidement.
           </p>
         </div>
 
-        <div className="bg-slate-100 p-3 sm:p-4">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg sm:p-3">
+        <div className="bg-[rgba(47,143,70,0.06)] p-3 sm:p-4">
+          <div className="overflow-hidden rounded-2xl border border-ocean/10 bg-white p-2 shadow-lg sm:p-3">
             <iframe
               src={googleFormUrl}
               title="Demande de devis"

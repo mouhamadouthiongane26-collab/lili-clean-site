@@ -97,7 +97,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 key={step}
                 className="rounded-[1.35rem] border border-ocean/10 bg-mist p-6"
               >
-                <p className="text-xs uppercase tracking-[0.22em] text-accent">
+                <p className="text-xs uppercase tracking-[0.22em] text-sky">
                   Etape {index + 1}
                 </p>
                 <p className="mt-4 text-sm leading-7 text-ink/72">{step}</p>
@@ -116,7 +116,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             accueillir des demandes simples, ponctuelles ou mixtes.
           </p>
           <ContactActions className="mt-8" />
-          <Link href="/services" className="mt-6 inline-flex text-sm font-semibold text-ocean">
+          <Link
+            href="/services"
+            className="mt-6 inline-flex text-sm font-semibold text-sky transition hover:text-accent"
+          >
             Retourner a la page services
           </Link>
         </div>

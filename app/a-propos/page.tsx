@@ -37,7 +37,7 @@ export default function AboutPage() {
       />
 
       <section className="mx-auto max-w-7xl px-4 py-18 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="section-card grid gap-8 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[0.92fr_1.08fr]">
           <Reveal className="media-panel min-h-[420px]" variant="zoom">
             <Image
               src={siteImages.about.src}
@@ -75,7 +75,7 @@ export default function AboutPage() {
             <Reveal delay={90}>
               <article className="card">
                 <h2 className="font-heading text-4xl text-ocean">Promesse de service</h2>
-                <ul className="mt-6 space-y-4 text-sm leading-7 text-ink/85">
+                <ul className="list-check mt-6 space-y-4 text-sm leading-7 text-ink/85">
                   <li>Des réponses rapides sur les demandes de devis</li>
                   <li>Une communication simple et lisible</li>
                   <li>Une offre adaptée aux besoins réguliers et ponctuels</li>

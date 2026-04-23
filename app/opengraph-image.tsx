@@ -19,8 +19,8 @@ export default function OpenGraphImage() {
           height: "100%",
           width: "100%",
           background:
-            "radial-gradient(circle at top left, rgba(82,169,155,0.24), transparent 28%), linear-gradient(135deg, #f4f6f3 0%, #ffffff 45%, #eaf3f0 100%)",
-          color: "#123A54",
+            "radial-gradient(circle at top left, rgba(214,31,117,0.18), transparent 28%), radial-gradient(circle at top right, rgba(47,143,70,0.18), transparent 32%), linear-gradient(135deg, #f6f8f6 0%, #ffffff 45%, #eef7f0 100%)",
+          color: "#185C37",
           padding: "72px",
           fontFamily: "sans-serif"
         }}
@@ -31,7 +31,7 @@ export default function OpenGraphImage() {
             flexDirection: "column",
             justifyContent: "space-between",
             width: "100%",
-            border: "1px solid rgba(18,58,84,0.12)",
+            border: "1px solid rgba(24,92,55,0.12)",
             borderRadius: "28px",
             padding: "56px",
             background: "rgba(255,255,255,0.82)"
@@ -42,7 +42,7 @@ export default function OpenGraphImage() {
               fontSize: 28,
               letterSpacing: 6,
               textTransform: "uppercase",
-              color: "#52A99B"
+              color: "#D61F75"
             }}
           >
             Nettoyage local premium
@@ -53,7 +53,7 @@ export default function OpenGraphImage() {
               {company.heroTitle}
             </div>
           </div>
-          <div style={{ fontSize: 30, color: "#18232F" }}>
+          <div style={{ fontSize: 30, color: "#1F2933" }}>
             {company.city} · Téléphone {company.phoneDisplay}
           </div>
         </div>

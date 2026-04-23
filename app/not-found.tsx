@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky">
         Page introuvable
       </p>
       <h1 className="mt-5 font-heading text-5xl text-ocean">Cette page n’existe pas.</h1>

@@ -65,7 +65,7 @@ export default function HomePage() {
       <section className="hero-shell overflow-hidden">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-22 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-28">
           <Reveal className="max-w-3xl" variant="slide">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky">
+            <p className="eyebrow-badge">
               Nettoyage premium sobre
             </p>
             <h1 className="mt-5 font-heading text-6xl leading-[0.92] text-ocean sm:text-7xl">
@@ -83,7 +83,7 @@ export default function HomePage() {
               {trustPoints.map((point, index) => (
                 <div
                   key={point}
-                  className="glass-panel p-4"
+                  className="glass-panel border-ocean/10 p-5"
                   style={{ transitionDelay: `${index * 90}ms` }}
                 >
                   <p className="text-sm leading-6 text-ink/85">{point}</p>
@@ -101,7 +101,7 @@ export default function HomePage() {
               sizes="(max-width: 1024px) 100vw, 44vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,24,39,0.18),rgba(17,24,39,0.82))]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,44,31,0.14),rgba(17,34,23,0.8))]" />
             <div className="relative flex h-full flex-col justify-between p-6 sm:p-8">
               <div className="media-caption max-w-max px-4 py-3 text-white">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-foam">
@@ -113,7 +113,7 @@ export default function HomePage() {
               </div>
 
               <div className="grid gap-4">
-                <div className="rounded-[1.4rem] border border-white/15 bg-black/60 p-5 text-white backdrop-blur">
+                <div className="rounded-[1.4rem] border border-white/15 bg-[rgba(17,34,23,0.72)] p-5 text-white backdrop-blur">
                   <p className="text-xs uppercase tracking-[0.22em] text-white/70">
                     Zone d’intervention
                   </p>
@@ -125,14 +125,14 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[1.4rem] border border-white/15 bg-black/60 p-5 text-white backdrop-blur">
+                  <div className="rounded-[1.4rem] border border-white/15 bg-[rgba(17,34,23,0.72)] p-5 text-white backdrop-blur">
                     <p className="text-xs uppercase tracking-[0.22em] text-white/65">
                       Contact direct
                     </p>
                     <p className="mt-3 text-xl font-semibold">{company.phoneDisplay}</p>
                     <p className="email-link mt-2 text-sm text-white">{company.email}</p>
                   </div>
-                  <div className="rounded-[1.4rem] border border-white/15 bg-black/60 p-5 text-white backdrop-blur">
+                  <div className="rounded-[1.4rem] border border-white/15 bg-[rgba(17,34,23,0.72)] p-5 text-white backdrop-blur">
                     <p className="text-xs uppercase tracking-[0.22em] text-white/65">
                       Engagement
                     </p>
@@ -148,48 +148,50 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Services phares"
-            title="Des prestations pensées pour le quotidien, les rotations et les remises en ordre."
-            description="Des prestations de nettoyage utiles et claires, pour répondre simplement à vos besoins."
-          />
-        </Reveal>
-
-        <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <Reveal className="media-panel min-h-[420px]" variant="zoom">
-            <Image
-              src={siteImages.servicesVisual.src}
-              alt={siteImages.servicesVisual.alt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 42vw"
-              className="object-cover"
+        <div className="section-card px-6 py-10 sm:px-8 sm:py-12">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Services phares"
+              title="Des prestations pensées pour le quotidien, les rotations et les remises en ordre."
+              description="Des prestations de nettoyage utiles et claires, pour répondre simplement à vos besoins."
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,24,39,0.08),rgba(17,24,39,0.28))]" />
           </Reveal>
 
-          <div className="grid gap-6 sm:grid-cols-2">
-            {featuredServices.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 90}>
-                <ServiceCard service={service} showImage={false} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <Reveal className="media-panel min-h-[420px]" variant="zoom">
+              <Image
+                src={siteImages.servicesVisual.src}
+                alt={siteImages.servicesVisual.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,44,31,0.06),rgba(24,44,31,0.26))]" />
+            </Reveal>
 
-        <Reveal className="mt-10" delay={180}>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/services" className="btn-secondary">
-              Voir toutes les prestations
-            </Link>
-            <Link href="/services#avant-apres" className="btn-ghost">
-              Voir les avant / après
-            </Link>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {featuredServices.map((service, index) => (
+                <Reveal key={service.slug} delay={index * 90}>
+                  <ServiceCard service={service} showImage={false} />
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </Reveal>
+
+          <Reveal className="mt-10" delay={180}>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/services" className="btn-secondary">
+                Voir toutes les prestations
+              </Link>
+              <Link href="/services#avant-apres" className="btn-ghost">
+                Voir les avant / après
+              </Link>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
-      <section className="bg-white">
+      <section className="section-soft">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
@@ -262,7 +264,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="section-soft">
         <div className="mx-auto max-w-7xl px-4 py-22 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
@@ -309,7 +311,7 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      <section className="bg-white">
+      <section className="section-soft">
         <div className="mx-auto max-w-5xl px-4 py-22 sm:px-6 lg:px-8">
           <Reveal variant="up">
             <LeadForm />

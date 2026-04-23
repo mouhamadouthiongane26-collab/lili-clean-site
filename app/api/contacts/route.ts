@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
+import { google } from "googleapis";
+import nodemailer from "nodemailer";
 
-import {
-  getSupabaseAdminClient,
-  getSupabaseServerClient
-} from "@/lib/supabase";
 import { normalizePhone } from "@/lib/utils";
 
 type ContactPayload = {
@@ -16,7 +14,17 @@ type ContactPayload = {
   besoin?: unknown;
 };
 
-const supabaseTimeoutMs = 8000;
+type ContactData = {
+  prenom: string;
+  nom: string;
+  email: string;
+  telephone: string;
+  adresse: string;
+  surface: number;
+  besoin: string;
+};
+
+export const runtime = "nodejs";
 
 function cleanString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -30,100 +38,93 @@ function toPositiveNumber(value: string) {
   const normalizedValue = value.replace(",", ".");
   const numberValue = Number(normalizedValue);
 
-  return Number.isInteger(numberValue) && numberValue > 0 ? numberValue : null;
+  return Number.isFinite(numberValue) && numberValue > 0 ? numberValue : null;
 }
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs: number) {
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+function getRequiredEnv(name: string) {
+  const value = process.env[name]?.trim();
 
-  return Promise.race([
-    promise.finally(() => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    }),
-    new Promise<T>((_, reject) => {
-      timeoutId = setTimeout(() => {
-        reject(new Error("Timeout Supabase"));
-      }, timeoutMs);
-    })
-  ]);
+  if (!value) {
+    throw new Error(`Variable d'environnement manquante : ${name}`);
+  }
+
+  return value;
 }
 
-export async function POST(request: Request) {
-  try {
-    const payload = (await request.json()) as ContactPayload;
-    console.log("[contacts] Donnees recues :", JSON.stringify(payload));
+function getPrivateKey() {
+  return getRequiredEnv("GOOGLE_SHEETS_PRIVATE_KEY").replace(/\\n/g, "\n");
+}
 
-    const prenom = cleanString(payload.prenom);
-    const nom = cleanString(payload.nom);
-    const email = cleanString(payload.email).toLowerCase();
-    const telephone = normalizePhone(cleanString(payload.telephone));
-    const adresse = cleanString(payload.adresse);
-    const rawSurface = cleanString(payload.surface);
-    const surface = toPositiveNumber(rawSurface);
-    const besoin = cleanString(payload.besoin);
-    const fieldErrors: Record<string, string> = {};
+function getSheetRange() {
+  const sheetName = process.env.GOOGLE_SHEETS_TAB_NAME?.trim() || "Contacts";
+  const escapedSheetName = sheetName.replace(/'/g, "''");
 
-    if (!prenom) {
-      fieldErrors.prenom = "Le prénom est requis.";
-    }
+  return `'${escapedSheetName}'!A:H`;
+}
 
-    if (!nom) {
-      fieldErrors.nom = "Le nom est requis.";
-    }
+function buildEmailText(contact: ContactData) {
+  return [
+    "Nouvelle demande de devis",
+    "",
+    `Prénom : ${contact.prenom}`,
+    `Nom : ${contact.nom}`,
+    `Email : ${contact.email}`,
+    `Téléphone : ${contact.telephone}`,
+    `Adresse : ${contact.adresse}`,
+    `Surface : ${contact.surface} m²`,
+    `Besoin : ${contact.besoin}`
+  ].join("\n");
+}
 
-    if (!email) {
-      fieldErrors.email = "L'adresse email est requise.";
-    } else if (!isValidEmail(email)) {
-      fieldErrors.email = "L'adresse email n'est pas valide.";
-    }
+function validateContact(payload: ContactPayload) {
+  const prenom = cleanString(payload.prenom);
+  const nom = cleanString(payload.nom);
+  const email = cleanString(payload.email).toLowerCase();
+  const telephone = normalizePhone(cleanString(payload.telephone));
+  const adresse = cleanString(payload.adresse);
+  const rawSurface = cleanString(payload.surface);
+  const surface = toPositiveNumber(rawSurface);
+  const besoin = cleanString(payload.besoin);
+  const fieldErrors: Record<string, string> = {};
 
-    if (!telephone) {
-      fieldErrors.telephone = "Le téléphone est requis.";
-    }
+  if (!prenom) {
+    fieldErrors.prenom = "Le prénom est requis.";
+  }
 
-    if (!adresse) {
-      fieldErrors.adresse = "L'adresse postale est requise.";
-    }
+  if (!nom) {
+    fieldErrors.nom = "Le nom est requis.";
+  }
 
-    if (!rawSurface) {
-      fieldErrors.surface = "La surface est requise.";
-    } else if (!surface) {
-      fieldErrors.surface = "La surface doit être un nombre supérieur à 0.";
-    }
+  if (!email) {
+    fieldErrors.email = "L'adresse email est requise.";
+  } else if (!isValidEmail(email)) {
+    fieldErrors.email = "L'adresse email n'est pas valide.";
+  }
 
-    if (!besoin) {
-      fieldErrors.besoin = "Votre besoin est requis.";
-    }
+  if (!telephone) {
+    fieldErrors.telephone = "Le téléphone est requis.";
+  }
 
-    if (Object.keys(fieldErrors).length > 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Merci de corriger les champs indiqués.",
-          fieldErrors
-        },
-        { status: 400 }
-      );
-    }
+  if (!adresse) {
+    fieldErrors.adresse = "L'adresse postale est requise.";
+  }
 
-    const supabase = getSupabaseAdminClient() ?? getSupabaseServerClient();
+  if (!rawSurface) {
+    fieldErrors.surface = "La surface est requise.";
+  } else if (!surface) {
+    fieldErrors.surface = "La surface doit être un nombre supérieur à 0.";
+  }
 
-    if (!supabase) {
-      console.error("[contacts] Client Supabase indisponible.");
+  if (!besoin) {
+    fieldErrors.besoin = "Votre besoin est requis.";
+  }
 
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Une erreur serveur est survenue. Merci de réessayer dans un instant."
-        },
-        { status: 500 }
-      );
-    }
+  if (Object.keys(fieldErrors).length > 0 || surface === null) {
+    return { fieldErrors };
+  }
 
-    const supabaseClient = supabase;
-    const contact = {
+  return {
+    contact: {
       prenom,
       nom,
       email,
@@ -131,41 +132,101 @@ export async function POST(request: Request) {
       adresse,
       surface,
       besoin
-    };
-
-    console.log("[contacts] Insertion Supabase :", JSON.stringify(contact));
-
-    async function insertContact() {
-      return supabaseClient
-        .from("contacts")
-        .insert(contact)
-        .select("id, created_at")
-        .single();
     }
+  };
+}
 
-    const { data, error } = await withTimeout(insertContact(), supabaseTimeoutMs);
+async function sendEmail(contact: ContactData) {
+  const emailUser = getRequiredEnv("EMAIL_USER");
+  const emailPass = getRequiredEnv("EMAIL_PASS");
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: emailUser,
+      pass: emailPass
+    }
+  });
 
-    if (error) {
-      console.error("[contacts] Erreur Supabase :", JSON.stringify(error));
+  console.log("[contacts] Envoi email Gmail en cours :", contact.email);
 
+  await transporter.sendMail({
+    from: `"Lilicleanservices" <${emailUser}>`,
+    to: emailUser,
+    replyTo: contact.email,
+    subject: "Nouvelle demande de devis",
+    text: buildEmailText(contact)
+  });
+
+  console.log("[contacts] Email Gmail envoye.");
+}
+
+async function appendToGoogleSheet(contact: ContactData) {
+  const spreadsheetId = getRequiredEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      client_email: getRequiredEnv("GOOGLE_SHEETS_CLIENT_EMAIL"),
+      private_key: getPrivateKey()
+    },
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"]
+  });
+  const sheets = google.sheets({ version: "v4", auth });
+  const values = [
+    [
+      new Date().toISOString(),
+      contact.prenom,
+      contact.nom,
+      contact.email,
+      contact.telephone,
+      contact.adresse,
+      contact.surface,
+      contact.besoin
+    ]
+  ];
+
+  console.log("[contacts] Ajout Google Sheets en cours :", {
+    spreadsheetId,
+    range: getSheetRange()
+  });
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId,
+    range: getSheetRange(),
+    valueInputOption: "USER_ENTERED",
+    requestBody: {
+      values
+    }
+  });
+
+  console.log("[contacts] Ligne ajoutee dans Google Sheets.");
+}
+
+export async function POST(request: Request) {
+  try {
+    const payload = (await request.json()) as ContactPayload;
+    console.log("[contacts] Donnees recues :", JSON.stringify(payload));
+
+    const validation = validateContact(payload);
+
+    if ("fieldErrors" in validation) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Une erreur est survenue pendant l'envoi. Merci de réessayer dans un instant.",
-          details: error.message
+          message: "Merci de corriger les champs indiqués.",
+          fieldErrors: validation.fieldErrors
         },
-        { status: 500 }
+        { status: 400 }
       );
     }
 
-    console.log("[contacts] Contact enregistre :", data);
+    await Promise.all([
+      sendEmail(validation.contact),
+      appendToGoogleSheet(validation.contact)
+    ]);
 
     return NextResponse.json(
       {
         success: true,
-        message: "Merci pour votre demande. Nous vous recontactons rapidement.",
-        contact: data
+        message: "Demande envoyée avec succès"
       },
       { status: 200 }
     );

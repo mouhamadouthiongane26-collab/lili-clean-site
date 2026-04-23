@@ -144,7 +144,7 @@ export function LeadForm() {
 
       setStatus({
         type: "success",
-        message: result.message || "Merci pour votre demande. Nous vous recontactons rapidement."
+        message: result.message || "Demande envoyée avec succès"
       });
       form.reset();
     } catch (error) {

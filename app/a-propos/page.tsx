@@ -66,6 +66,12 @@ export default function AboutPage() {
             <Reveal>
               <article className="card">
                 <h2 className="font-heading text-4xl text-ocean">Notre approche</h2>
+                <p className="mt-6 text-sm leading-8 text-ink/85">
+                  Nous intervenons avec soin, discrétion et régularité, que ce soit pour un
+                  entretien courant, un grand nettoyage ou une remise en état. Notre priorité est
+                  simple : un travail propre, des échanges clairs et une prise de rendez-vous
+                  rapide, au plus près de vous.
+                </p>
               </article>
             </Reveal>
 

@@ -66,12 +66,6 @@ export default function AboutPage() {
             <Reveal>
               <article className="card">
                 <h2 className="font-heading text-4xl text-ocean">Notre approche</h2>
-                <p className="mt-6 text-sm leading-8 text-ink/85">
-                  Lilicleanservices se positionne comme un service de nettoyage local,
-                  rassurant et très accessible. L’objectif n’est pas de surpromettre,
-                  mais de montrer une entreprise sérieuse, attentive aux détails et
-                  facile à contacter.
-                </p>
               </article>
             </Reveal>
 

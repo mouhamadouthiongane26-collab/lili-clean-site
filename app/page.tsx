@@ -315,7 +315,6 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Demande de devis"
               title="Une prise de contact rapide, même si votre besoin n'entre pas encore dans une case."
-              description="Le formulaire est prêt pour des demandes particulières, des besoins réguliers ou une intervention ponctuelle."
             />
             <p className="mt-8 text-sm leading-7 text-ink/85">
               Si vous préférez aller plus vite, vous pouvez aussi nous appeler au{" "}

@@ -72,11 +72,6 @@ export default function AboutPage() {
                   mais de montrer une entreprise sérieuse, attentive aux détails et
                   facile à contacter.
                 </p>
-                <p className="mt-5 text-sm leading-8 text-ink/85">
-                  Cette approche convient particulièrement à un site vitrine de
-                  lancement : une image professionnelle, des prestations claires et un
-                  parcours de prise de contact qui réduit les hésitations.
-                </p>
               </article>
             </Reveal>
 

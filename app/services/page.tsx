@@ -69,7 +69,6 @@ export default function ServicesPage() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                 />
-                <div className="media-overlay-dark absolute inset-0" />
               </Reveal>
             ))}
           </div>

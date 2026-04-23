@@ -14,14 +14,10 @@ Site vitrine `Next.js` pour `Lilicleanservices`, pensé pour la conversion local
 ## Variables d'environnement
 
 - `NEXT_PUBLIC_SITE_URL`
-- `EMAIL_USER` : adresse Gmail qui reçoit les demandes
-- `EMAIL_PASS` : mot de passe d'application Gmail
 
 ## Formulaire
 
-- Le formulaire de devis envoie les demandes via `/api/contacts`.
-- La route API envoie un email Gmail avec les informations du formulaire.
-- Une version HTML/CSS/JavaScript autonome est disponible dans `public/formulaire-devis-lilicleanservice.html`.
+- Le formulaire de devis est intégré avec Google Forms via une iframe dans `components/lead-form.tsx`.
 
 ## Contenu à remplacer avant production
 

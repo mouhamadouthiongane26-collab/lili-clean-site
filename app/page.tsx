@@ -195,7 +195,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Pourquoi choisir Lilicleanservices"
               title="Pourquoi choisir Lilicleanservices ?"
-              description="Un service simple et de confiance, avec un résultat propre et visible chez vous."
+              description="Un service fiable, soigné et pensé pour vous garantir un intérieur impeccable, sans contrainte."
             />
           </Reveal>
 
@@ -209,11 +209,6 @@ export default function HomePage() {
                   </article>
                 </Reveal>
               ))}
-              <Reveal delay={advantages.length * 80} className="sm:col-span-2 lg:col-span-3">
-                <p className="text-sm leading-7 text-ink/85">
-                  Avec Lilicleanservices, profitez d’un intérieur propre et sain en toute tranquillité.
-                </p>
-              </Reveal>
             </div>
 
             <Reveal className="media-panel min-h-[380px]" variant="zoom" delay={120}>

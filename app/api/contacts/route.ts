@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { google } from "googleapis";
 import nodemailer from "nodemailer";
 
 import { normalizePhone } from "@/lib/utils";
@@ -51,20 +50,9 @@ function getRequiredEnv(name: string) {
   return value;
 }
 
-function getPrivateKey() {
-  return getRequiredEnv("GOOGLE_SHEETS_PRIVATE_KEY").replace(/\\n/g, "\n");
-}
-
-function getSheetRange() {
-  const sheetName = process.env.GOOGLE_SHEETS_TAB_NAME?.trim() || "Contacts";
-  const escapedSheetName = sheetName.replace(/'/g, "''");
-
-  return `'${escapedSheetName}'!A:H`;
-}
-
 function buildEmailText(contact: ContactData) {
   return [
-    "Nouvelle demande de devis",
+    "Nouvelle demande de devis :",
     "",
     `Prénom : ${contact.prenom}`,
     `Nom : ${contact.nom}`,
@@ -72,7 +60,8 @@ function buildEmailText(contact: ContactData) {
     `Téléphone : ${contact.telephone}`,
     `Adresse : ${contact.adresse}`,
     `Surface : ${contact.surface} m²`,
-    `Besoin : ${contact.besoin}`
+    "Besoin :",
+    contact.besoin
   ].join("\n");
 }
 
@@ -160,46 +149,6 @@ async function sendEmail(contact: ContactData) {
   console.log("[contacts] Email Gmail envoye.");
 }
 
-async function appendToGoogleSheet(contact: ContactData) {
-  const spreadsheetId = getRequiredEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
-  const auth = new google.auth.GoogleAuth({
-    credentials: {
-      client_email: getRequiredEnv("GOOGLE_SHEETS_CLIENT_EMAIL"),
-      private_key: getPrivateKey()
-    },
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"]
-  });
-  const sheets = google.sheets({ version: "v4", auth });
-  const values = [
-    [
-      new Date().toISOString(),
-      contact.prenom,
-      contact.nom,
-      contact.email,
-      contact.telephone,
-      contact.adresse,
-      contact.surface,
-      contact.besoin
-    ]
-  ];
-
-  console.log("[contacts] Ajout Google Sheets en cours :", {
-    spreadsheetId,
-    range: getSheetRange()
-  });
-
-  await sheets.spreadsheets.values.append({
-    spreadsheetId,
-    range: getSheetRange(),
-    valueInputOption: "USER_ENTERED",
-    requestBody: {
-      values
-    }
-  });
-
-  console.log("[contacts] Ligne ajoutee dans Google Sheets.");
-}
-
 export async function POST(request: Request) {
   try {
     const payload = (await request.json()) as ContactPayload;
@@ -218,10 +167,7 @@ export async function POST(request: Request) {
       );
     }
 
-    await Promise.all([
-      sendEmail(validation.contact),
-      appendToGoogleSheet(validation.contact)
-    ]);
+    await sendEmail(validation.contact);
 
     return NextResponse.json(
       {

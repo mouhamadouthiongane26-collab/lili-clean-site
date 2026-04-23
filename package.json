@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "clsx": "latest",
-    "googleapis": "^171.4.0",
     "next": "latest",
     "nodemailer": "^8.0.5",
     "react": "latest",

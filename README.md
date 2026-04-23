@@ -14,14 +14,13 @@ Site vitrine `Next.js` pour `Lilicleanservices`, pensé pour la conversion local
 ## Variables d'environnement
 
 - `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
 
 ## Supabase
 
 - Le schéma SQL initial est dans [supabase/migrations/0001_init.sql](/Users/mouhamadoumoustaphathiongane/Documents/lili%20clean/supabase/migrations/0001_init.sql)
-- La table réellement utilisée par le MVP est `leads`
+- Le formulaire de contact enregistre maintenant les demandes dans la table `contacts`
 - Les autres tables sont prêtes pour une administration légère via `Supabase Studio`
 
 ## Contenu à remplacer avant production

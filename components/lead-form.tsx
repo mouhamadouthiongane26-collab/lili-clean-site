@@ -1,11 +1,10 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
-import { useFormStatus } from "react-dom";
+import type { FormEvent } from "react";
+import { useState } from "react";
 
-import { submitLeadForm } from "@/app/actions";
 import { services } from "@/lib/data";
-import type { LeadFormState } from "@/lib/types";
+import type { LeadFormInput, LeadFormState } from "@/lib/types";
 
 const initialState: LeadFormState = {
   success: false,
@@ -26,28 +25,76 @@ const frequencies = [
   "A définir ensemble"
 ];
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
+function SubmitButton({ pending }: { pending: boolean }) {
   return (
-    <button type="submit" className="btn-primary w-full sm:w-auto" disabled={pending}>
+    <button
+      type="submit"
+      className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+      disabled={pending}
+    >
       {pending ? "Envoi en cours..." : "Envoyer la demande"}
     </button>
   );
 }
 
-export function LeadForm() {
-  const [state, formAction] = useActionState(submitLeadForm, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
+function getString(formData: FormData, key: keyof LeadFormInput | "website") {
+  return String(formData.get(key) || "");
+}
 
-  useEffect(() => {
-    if (state.success) {
-      formRef.current?.reset();
+export function LeadForm() {
+  const [state, setState] = useState<LeadFormState>(initialState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload: LeadFormInput = {
+      first_name: getString(formData, "first_name"),
+      last_name: getString(formData, "last_name"),
+      email: getString(formData, "email"),
+      phone: getString(formData, "phone"),
+      customer_type: getString(formData, "customer_type"),
+      service_type: getString(formData, "service_type"),
+      location: getString(formData, "location"),
+      surface: getString(formData, "surface"),
+      frequency: getString(formData, "frequency"),
+      message: getString(formData, "message"),
+      consent: formData.get("consent") === "on",
+      website: getString(formData, "website")
+    };
+
+    setIsSubmitting(true);
+    setState(initialState);
+
+    try {
+      const response = await fetch("/api/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = (await response.json()) as LeadFormState;
+      setState(result);
+
+      if (response.ok && result.success) {
+        form.reset();
+      }
+    } catch {
+      setState({
+        success: false,
+        message: "Une erreur est survenue. Merci de réessayer dans un instant."
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [state.success]);
+  }
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
       <div>
         <h2 className="font-heading text-4xl text-ocean">Formulaire de devis</h2>
         <p className="mt-3 text-sm leading-7 text-ink/72">
@@ -236,6 +283,7 @@ export function LeadForm() {
 
       {state.message ? (
         <div
+          aria-live="polite"
           className={`rounded-[1.35rem] px-4 py-4 text-sm leading-6 ${
             state.success
               ? "border border-accent/20 bg-accent/10 text-ocean"
@@ -246,7 +294,7 @@ export function LeadForm() {
         </div>
       ) : null}
 
-      <SubmitButton />
+      <SubmitButton pending={isSubmitting} />
     </form>
   );
 }

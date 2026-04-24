@@ -18,18 +18,15 @@ export function LeadForm() {
 
         <div className="bg-[#1F5E3B]/[0.06] p-3 sm:p-5">
           <div className="overflow-hidden rounded-xl border border-[#1F5E3B]/10 bg-white shadow-lg">
-            <iframe
-              src={tallyFormUrl}
-              title="Demande de devis LiliCleanServices"
-              width="100%"
-              height="800"
-              frameBorder="0"
-              marginHeight={0}
-              marginWidth={0}
-              className="block min-h-[800px] w-full border-0 bg-white"
-            >
-              Chargement…
-            </iframe>
+          <form className="space-y-4">
+  <input type="text" placeholder="Nom" className="w-full p-2 border rounded" />
+  <input type="email" placeholder="Email" className="w-full p-2 border rounded" />
+  <input type="tel" placeholder="Téléphone" className="w-full p-2 border rounded" />
+  <textarea placeholder="Votre besoin" className="w-full p-2 border rounded"></textarea>
+  <button type="submit" className="bg-pink-600 text-white px-4 py-2 rounded">
+    Envoyer la demande
+  </button>
+</form>
           </div>
         </div>
       </div>

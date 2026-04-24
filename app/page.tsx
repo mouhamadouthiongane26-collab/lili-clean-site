@@ -158,16 +158,33 @@ export default function HomePage() {
           </Reveal>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <Reveal className="media-panel min-h-[420px]" variant="zoom">
+            <div>
+              <Reveal className="media-panel min-h-[420px]" variant="zoom">
+                <Image
+                  src={siteImages.servicesVisual.src}
+                  alt={siteImages.servicesVisual.alt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,44,31,0.06),rgba(24,44,31,0.26))]" />
+              </Reveal>
+
               <Image
-                src={siteImages.servicesVisual.src}
-                alt={siteImages.servicesVisual.alt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                className="object-cover"
+                src="/images/propre.png"
+                alt="Maison propre LiliCleanServices"
+                width={1536}
+                height={1024}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxWidth: "400px",
+                  display: "block",
+                  margin: "20px auto",
+                  borderRadius: "12px"
+                }}
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,44,31,0.06),rgba(24,44,31,0.26))]" />
-            </Reveal>
+            </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
               {featuredServices.map((service, index) => (

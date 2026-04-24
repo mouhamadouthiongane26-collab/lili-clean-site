@@ -45,9 +45,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <head>
-      <meta name="google-site-verification" content="h4eQzHlWYYbKbqGJub_cs11O-P6iaAfCcON2_s6KyZQ" />
-      </head>
       <body className="text-ink">
         <Header />
         <main className="pb-24 sm:pb-0">{children}</main>

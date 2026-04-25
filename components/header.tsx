@@ -1,31 +1,17 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { QuoteLink } from "@/components/quote-link";
+import { SiteLogo } from "@/components/site-logo";
 import { company, siteSettings } from "@/lib/data";
+import { getSafeLogoSrc } from "@/lib/logo";
 
 export function Header() {
+  const logoSrc = getSafeLogoSrc();
+
   return (
     <header className="sticky top-0 z-50 border-b border-ocean/10 bg-white/95 shadow-[0_10px_30px_rgba(24,92,55,0.08)] backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:gap-6 sm:px-6 lg:px-8">
-        <Link href="/" className="flex min-w-0 items-center gap-3">
-          <Image
-            src="/images/LOGO.png"
-            alt="LiliCleanServices - Nettoyage professionnel"
-            width={56}
-            height={56}
-            priority
-            className="h-12 w-12 rounded-full border border-ocean/10 bg-white object-contain p-1 shadow-soft sm:h-14 sm:w-14"
-          />
-          <div className="min-w-0">
-            <p className="font-heading text-lg leading-tight text-ink sm:text-2xl">
-              {company.name}
-            </p>
-            <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-ocean/80 sm:text-xs sm:tracking-[0.22em]">
-              Nettoyage professionnel
-            </p>
-          </div>
-        </Link>
+        <SiteLogo src={logoSrc} />
 
         <nav className="hidden items-center gap-10 lg:flex">
           {siteSettings.navItems.map((item) => (
